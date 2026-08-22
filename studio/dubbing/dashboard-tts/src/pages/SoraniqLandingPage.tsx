@@ -18,7 +18,7 @@ export default function SoraniqLandingPage() {
   const [avgProfitPerCustomer, setAvgProfitPerCustomer] = useState(10000); // 10,000 IQD default
   const [touristCustomers, setTouristCustomers] = useState(10); // 10 customers default
 
-  // 1. Passive Pattern Interrupt Banner (Tactic #28 Refinement)
+  // 1. Passive Pattern Interrupt Banner (Tactic #28)
   const [showPassiveBanner, setShowPassiveBanner] = useState(false);
   const hasTriggeredInterrupt = useRef(false);
   const pageLoadedTime = useRef(Date.now());
@@ -49,7 +49,7 @@ export default function SoraniqLandingPage() {
       const scrollDiff = Math.abs(currentScrollY - lastScrollY);
       const timeSincePageLoad = (currentTime - pageLoadedTime.current) / 1000;
 
-      // If user scrolls past hero/pain (scrollY > 350) in under 2.5 seconds or at rapid velocity
+      // Trigger if user scrolls past hero/pain (scrollY > 350) rapidly
       if (
         !hasTriggeredInterrupt.current &&
         currentScrollY > 350 &&
@@ -74,7 +74,7 @@ export default function SoraniqLandingPage() {
       ([entry]) => {
         if (entry.isIntersecting && !pricingInView) {
           setPricingInView(true);
-          // Anchor ($99) is shown immediately. Exactly 0.8s later, snap $15 Decoy & $20 Target into place!
+          // Anchor ($99) is shown immediately. Exactly 0.8s later, snap $15 Decoy & $20 Target into place
           const timer = setTimeout(() => {
             setTiersRevealed(true);
           }, 800);
@@ -95,80 +95,96 @@ export default function SoraniqLandingPage() {
 
   const t = {
     ckb: {
-      badge: "⚠️ ئاگاداری: بۆ خاوەن دووکان و پێشانگاکانی سلێمانی و هەولێر",
-      heroHeadlineStart: "بازاڕی خۆماڵی سستە و بێ پارەیە.",
-      heroHeadlineHighlight: "گەشتیارە عەرەبەکان ملیاران دینار خەرج دەکەن.",
-      heroHeadlineEnd: "دووکانەکەت قسە بۆ کام بازاڕ دەکات؟",
+      badge: "⚠️ ڕاپۆرتی شیکاری: دۆخی بازاڕی سلێمانی و هەولێر",
+      heroHeadlineStart: "١٠,٠٠٠ دۆلار کەلوپەلی سارد لە دووکانەکەتدا.",
+      heroHeadlineHighlight: "گەشتیارانی عەرەب ڕۆژانە بە بەردەم دەرگاکەتدا تێدەپەڕن.",
+      heroHeadlineEnd: "دووکانەکەت قسە لەگەڵ کام سەرچاوەی پارە دەکات؟",
       heroSub:
-        "واز لە چاوەڕوانیی مووچەی دواکەوتوو بهێنە. لە ڕێگەی سیستەمی زیرەکی دەستکردمانەوە، یەکسەر ڤیدیۆکانی دووکانەکەت بکە بە عەرەبی عێراقی و ئەو گەشتیارانەی بە بەردەم دەرگاکەتدا تێدەپەڕن بکە بە کڕیاری ڕاستەقینە.",
-      ctaHeroMassive: "یەکسەر دەست پێبکە (لینککردنی وەتسئەپ لە ١٠ چرکەدا)",
+        "چاوەڕوانیکردنی مووچەی حکومی کێشەی نەبوونی نەختینە لە دووکانەکەت چارەسەر ناکات. ئەم سیستەمە دەنگی سۆرانیی ڤیدیۆکانت دەکاتە عەرەبی عێراقیی پاراو، بۆ ئەوەی ئەو گەشتیارانەی لە شارەکاندان بێنە ناو پێشانگاکەت.",
+      ctaHeroMassive: "دەستپێکردنی تاقیکردنەوە (لینککردنی وەتسئەپ لە ١٠ چرکەدا)",
       inputPlaceholder: "ژمارەی وەتسئەپ بنووسە (+964 7XX...)",
-      ctaPrimary: "لە ١٠ چرکەدا وەتسئەپەکەم ببەستەوە",
-      ctaSubtext: "تاقیکردنەوەی دەستبەجێ بە خۆڕایی • پێویست بە کارتی بانک ناکات",
+      ctaPrimary: "بەستنەوەی وەتسئەپ لە ١٠ چرکەدا",
+      ctaSubtext: "تاقیکردنەوەی ڕاستەوخۆ • بەبێ پێویستی بە کارتی بانکی",
 
-      passiveBannerText: "بوەستە... ئایا دڵنیایت ڕکابەرەکانت لە شەقامی مەولەوی پێش تۆ ئەم گەشتیارانەیان نەکردووەتە ئامانج؟",
+      passiveBannerText: "بوەستە... ئایا دڵنیایت ڕکابەرەکانت لە شەقامی مەولەوی پێش تۆ دەستیان بە ڕاکێشانی ئەم گەشتیارانە نەکردووە؟",
       passiveBannerAction: "سەیری بکە",
 
+      mechanismTag: "میکانیزمی کارکردن بە ٣ هەنگاو",
+      mechanismTitle: "چۆن کار دەکات بەبێ ئاڵۆزیی تەکنیکی",
+      step1Num: "٠١",
+      step1Title: "تۆمارکردنی ڤیدیۆ بە سۆرانی",
+      step1Desc: "هەمان ئەو ڤیدیۆیە بە کوردی سۆرانی تۆمار بکە کە هەموو ڕۆژێک بۆ پێناساندنی کەلوپەلەکانت دەیگریت.",
+      step2Num: "٠٢",
+      step2Title: "ناردن لە ڕێگەی وەتسئەپ",
+      step2Desc: "ڤیدیۆکە بنێرە بۆ بۆتەکەی ئێمە. لە ١٠ چرکەدا دەنگەکە دەبێتە شێوەزاری عەرەبی عێراقی بە پاراستنی میوزیک و دەنگی شوێنەکە.",
+      step3Num: "٠٣",
+      step3Title: "بڵاوکردنەوە بۆ گەشتیاران",
+      step3Desc: "ڤیدیۆ دۆبلاژکراوەکە لە تیکتۆک و ئینستاگرام دابنێ و گەشتیارانی بەغدا و بەسرە ڕاستەوخۆ بهێنە دووکانەکەت.",
+
       audioTitle: "گوێ لە جیاوازیی دەنگ و شێوەزارەکە بگرە",
-      audioSubtitle: "ببینە چۆن دەنگی سۆرانیی ئاسایی دەبێتە عەرەبی عێراقییەکی ئەوەندە سروشتی کە گەشتیار وا دەزانێت کارمەندەکەت خەڵکی بەغدایە!",
+      audioSubtitle: "بەراوردی دەنگی سۆرانیی سەرەکی و دۆبلاژی عەرەبی عێراقی بە شێوەزاری ڕەسەنی بەغدایی.",
       kurdishAudioLabel: "دەنگی سەرەکی بە سۆرانی",
       iraqiAudioLabel: "دەنگی دۆبلاژکراو بە عەرەبی عێراقی (Doblaj AI)",
-      kurdishTranscript: "«بەخێربێن بۆ پێشانگاکەمان، نوێترین مۆدێلی جلوبەرگی هاوینەمان بۆ گەیشتووە بە داشکاندنی تایبەت بۆ ئەم هەفتەیە...»",
-      iraqiTranscript: "«أهلاً وسهلاً بيكم بمعرضنا، وصلتنا أرقى الموديلات الصيفية بتخفيضات خاصة كلش لهالاسبوع، لتفوتكم الفرصة وتعالوا زورونا...»",
+      kurdishTranscript: "«بەخێربێن بۆ پێشانگاکەمان، نوێترین مۆدێلی جلوبەرگی هاوینەمان بۆ گەیشتووە بە داشکاندنی تایبەت بۆ ئەم هەفتەیە.»",
+      iraqiTranscript: "«أهلاً وسهلاً بيكم بمعرضنا، وصلتنا أرقى الموديلات الصيفية بتخفيضات خاصة كلش لهالاسبوع، لتفوتكم الفرصة وتعالوا زورونا.»",
 
-      splitLeftTitle: "(دووکانەکەت لە ئێستادا)",
-      splitLeftStatus: "سارد و بێ کڕیار 🥀",
-      splitLeftItem1: "❌ چاوەڕوانی مووچەی حکومیی دواکەوتوو",
-      splitLeftItem2: "❌ کەڵەکەبوونی زیاتر لە دەفتەرێک بەهای کەلوپەلی نەفرۆشراو 📉",
-      splitLeftItem3: "❌ گەشتیاری عەرەب بە بەردەمتدا تێدەپەڕێت و ناتبینێت",
+      splitLeftTitle: "(دۆخی ئێستای دووکانەکەت)",
+      splitLeftStatus: "سارد و کەڵەکەبوو 🥀",
+      splitLeftItem1: "❌ زیاتر لە ١٠,٠٠٠ دۆلار کەلوپەلی نەفرۆشراو لەسەر ڕەفەکان",
+      splitLeftItem2: "❌ وەستانی بازاڕ بەهۆی دواکەوتنی مووچەی فەرمانبەران 📉",
+      splitLeftItem3: "❌ گەشتیاری عەرەب بە بەردەمتدا تێدەپەڕێت و دەنگت تێناگات",
       splitLeftMetric: "$0 داهات لە گەشتیار 📉",
 
-      splitRightTitle: "(دووکانەکەت بە Doblaj AI)",
-      splitRightStatus: "کاش و فرۆشی بەردەوام 💰",
-      splitRightItem1: "✅ ڤیدیۆی سۆرانی یەکسەر دەبێتە عەرەبی عێراقی پاراو",
-      splitRightItem2: "✅ گەشتیار لە تیکتۆک دەتبینێت و ڕاستەوخۆ دێتە دووکانەکەت 📈",
-      splitRightItem3: "✅ فرۆشی ڕۆژانە بە گەشتیارانی بەغدا و بەسرە 💰",
+      splitRightTitle: "(دۆخی دووکانەکەت بە Doblaj AI)",
+      splitRightStatus: "فرۆشی بەردەوام بە نەختینە 💰",
+      splitRightItem1: "✅ ڤیدیۆی سۆرانی دەبێتە عەرەبی عێراقیی پاراو",
+      splitRightItem2: "✅ گەشتیار لە تیکتۆک دەتبینێت و دێتە پێشانگاکەت 📈",
+      splitRightItem3: "✅ تەنها یەک فرۆش لە مانگێکدا تێچووی تەواوی سیستەم دەردێنێتەوە 💰",
       splitRightMetric: "+١,٥٠٠,٠٠٠ دینار تێکڕای قازانجی کۆتایی هەفتە 📈",
-      splitBottomNote: "(تێبینی: تەنها یەک فرۆش بە گەشتیارێکی عەرەب، تێچووی تەواوی مانگێکی ئەم سیستەمە دەردێنێتەوە. باقی ٢٩ ڕۆژەکەی تر ١٠٠٪ قازانجی ساغە بۆ خۆت).",
+      splitBottomNote: "(بیرکاریی ڕاستەقینە: تەنها یەک فرۆش بە گەشتیارێکی عەرەب لە مانگێکدا، تێچووی $20ی ئەم سیستەمە پڕ دەکاتەوە. باقی فرۆشەکانی تر قازانجی تەواون بۆ خۆت).",
 
-      calcTitle: "ژمێرەری قازانجی گەشتیاران بۆ دووکانەکەت",
-      calcSubtitle: "واز لە خەمڵاندن بهێنە. ئەم دوو خلیسکێنەرەی خوارەوە بجوڵێنە بۆ ئەوەی بە تەواوی بزانیت چەند پارەی کاشی گەشتیارانی عەرەب دەبەخشیتە ڕکابەرەکانت هەموو هەفتەیەک.",
+      calcTitle: "ژمێرەری داهاتی لەدەستچووی گەشتیاران",
+      calcSubtitle: "ئەم دوو خلیسکێنەرە بەپێی قازانجی دووکانەکەت دیاری بکە بۆ بینینی ئەو داهاتەی لەدەستت دەچێت.",
       calcSlider1Label: "قازانجی مامناوەند لە هەر گەشتیارێک:",
-      calcSlider2Label: "ژمارەی گەشتیارە عەرەبەکان:",
-      calcResultProfit: "داهاتی مانگانەی لەدەستچوو:",
-      calcCostNote: "تێچووی سیستەم: تەنها $20 لە مانگێکدا. باقی قازانجی ساغە.",
-      calcCtaBtn: "ئەم قازانجە بۆ دووکانەکەم زیاد بکە 💰",
+      calcSlider2Label: "ژمارەی ئەو کڕیارە عەرەبانەی لە مانگێکدا دەتوانن بکڕن:",
+      calcResultProfit: "داهاتی مانگانەی لەدەستچووی گەشتیاران:",
+      calcCostNote: "تێچووی تەواوی سیستەم: $20 لە مانگێکدا. بەبێ هیچ بڕە پارەیەکی شاراوە.",
+      calcCtaBtn: "زیادکردنی ئەم داهاتە بۆ دووکانەکەم 💰",
 
-      pricingAnchor: "کرێی وەرگێڕ و بێژەری دەنگی عەرەبی:",
+      guaranteeTag: "دڵنیایی ڕوون و شایەنی تاقیکردنەوە",
+      guaranteeTitle: "دڵنیایی ٧ ڕۆژی گەڕاندنەوەی تەواوی پارە",
+      guaranteeBody: "ئەگەر لە ماوەی ٧ ڕۆژدا تێبینیی سروشتیبوونی شێوەزارە عێراقییەکە یان سوودی سیستەمەکەت نەکرد، بە ناردنی تەنها یەک نامەی وەتسئەپ تەواوی ٢٠ دۆلارەکەت دەگەڕێنینەوە بەبێ هیچ پرسیار و مەرجێکی ئاڵۆز.",
+
+      pricingAnchor: "تێچووی وەرگێڕ و بێژەری دەنگی عەرەبی:",
       pricingAnchorOld: "$500 / مانگانە",
-      pricingAnchorSave: "٩٦٪ پاشەکەوت بکە بە Doblaj AI",
-      pricingTitle: "نرخی ڕزگارکردنی کاسبییەکەت",
+      pricingAnchorSave: "٩٦٪ پاشەکەوت بە Doblaj AI",
+      pricingTitle: "پلانەکانی بەشداریکردن",
       pricingSubtitle: "تەنها یەک فرۆش بە گەشتیارێکی عەرەب، تێچووی تەواوی مانگێکی ئەم سیستەمە دەردێنێتەوە.",
       billingMonthly: "مانگانە",
       billingAnnual: "ساڵانە (٢ مانگ بە دیاری) ✅",
 
-      decoyTitle: "دەستپێکی سنووردار (داو)",
+      decoyTitle: "پلانی تاقیکاریی سنووردار",
       decoyPrice: isAnnual ? "$12" : "$15",
       decoyPeriod: "/مانگ",
       decoyLimit: "تەنها یەک ڤیدیۆ لە مانگێکدا ⚠️",
-      decoyItem1: "❌ ڕیزبەندیی هێواش",
+      decoyItem1: "❌ ڕیزبەندیی هێواش لە ڕاڕەوی سێرڤەر",
       decoyItem2: "❌ کواڵێتی ئاسایی 720p",
       decoyItem3: "❌ دەنگی سادە و بێ هەست",
-      decoyCta: "تەنها ١ ڤیدیۆ ($15)",
+      decoyCta: "پلانی تاقیکاری ($15)",
 
-      targetBadge: "✅ پڕداواکراوترین — هەلی زێڕینی دووکاندار",
+      targetBadge: "✅ پەسەندکراو بۆ دووکاندار",
       targetTitle: "پلانی گەشەی بێسنوور",
       targetPrice: isAnnual ? "$16" : "$20",
       targetPeriod: "/مانگ",
       targetLimit: "ڤیدیۆی بێسنوور (تا ١٥ خولەک) 📈",
-      targetItem1: "✅ خێرایی دەستبەجێ بەبێ وەستان",
+      targetItem1: "✅ خێرایی دەستبەجێ بەبێ وەستان لە ڕیزدا",
       targetItem2: "✅ شێوەزاری عێراقیی پاراو و هەستی سروشتی",
       targetItem3: "✅ کواڵێتی 4K Ultra-HD بۆ ئینستاگرام و تیکتۆک",
       targetItem4: "✅ جیاکردنەوەی خۆکارانەی دەنگ و پاراستنی میوزیک",
-      targetMicroCopy: "کەمترە لە قازانجی فرۆشتنی تەنها یەک تیشێرت!",
-      targetCta: "ئێستا دەست بە پلانی $20 بێسنوور بکە 💰",
+      targetMicroCopy: "کەمترە لە قازانجی فرۆشتنی تەنها یەک تیشێرت لە مانگێکدا.",
+      targetCta: "دەستپێکردنی پلانی $20ی بێسنوور 💰",
 
-      anchorTitle: "ئاژانس و کۆمپانیا",
+      anchorTitle: "پلانی ئاژانس و کۆمپانیا",
       anchorPrice: isAnnual ? "$79" : "$99",
       anchorPeriod: "/مانگ",
       anchorLimit: "١٢٠ خولەک بۆ فرە-لق",
@@ -178,20 +194,21 @@ export default function SoraniqLandingPage() {
       anchorItem4: "✅ بەستنەوە بە API و پشتگیریی بەردەوام",
       anchorCta: "پلانی کۆمپانیا ($99)",
 
-      paymentTrust: "پارەدان بە دڵنیایی بە فاستپەی (FastPay)، FIB، زین کاش، ئاسیاحەواڵە، ڤیزا و ماستەرکارت.",
+      paymentTrust: "پارەدان لە ڕێگەی فاستپەی (FastPay)، FIB، زین کاش، ئاسیاحەواڵە، ڤیزا و ماستەرکارت.",
 
-      faqTitle: "وەڵامی ئەو پرسیارانەی لە مێشکتدان",
-      faqSubtitle: "بەر لەوەی دووکاندارەکەی تەنیشتت گەشتیارەکان بۆ لای خۆی ڕابکێشێت بیخوێنەرەوە.",
+      faqTitle: "وەڵامی دوو پرسیاری بنەڕەتی",
+      faqSubtitle: "بەر لە بڕیاردان، ئەم دوو خاڵە بە ڕوونی بخوێنەرەوە.",
 
-      faq1Q: "ناتوانم تەنها ژێرنووسی عەرەبیی بێبەرامبەر (نووسین) لەسەر ڤیدیۆکەم دابنێم؟",
+      faq1Q: "ناتوانم تەنها نووسینی عەرەبی (ژێرنووس) لەسەر ڤیدیۆکەم دابنێم؟",
       faq1A:
-        "هیچ کەسێک لە ناو بازاڕی قەرەباڵغ یان لە کاتی سەیرکردنی خێرای تیکتۆک ناوەستێت بۆ خوێندنەوەی دەقی وردی ژێرنووس. گەشتیار کاتێک دەکڕێت کە گوێی لە دەنگێکی عەرەبی عێراقیی گەرم و ڕەسەن بێت کە بە شێوەزاری خۆی بەخێرهاتنی دەکات. ژێرنووس لە نیو چرکەدا فڕێ دەدرێتە سەرەوە، بەڵام دەنگی سروشتی کڕیار دێنێتە بەردەم مەنزەرەکەت!",
+        "گەشتیار لە کاتی پیاسەکردن لە بازاڕدا یان سەیرکردنی تیکتۆکدا چاوی ناخاتە سەر نووسینی ژێرنووس. کڕیار کاتێک بڕیاری کڕین دەدات کە گوێی لە دەنگێکی گەرمی بەغدایی یان بەسراوی بێت کە بە شێوەزاری خۆی بەخێرهاتنی دەکات. ژێرنووس دەپەڕێنرێت، بەڵام دەنگی ڕەسەن سەرنج ڕادەکێشێت.",
 
-      faq2Q: "من کاسبکارم و شارەزایی بەرزی کۆمپیوتەرم نییە، ئایا ئەمە ئاڵۆز نییە بۆ من؟",
+      faq2Q: "من کاسبکارم و شارەزایی پرۆگرامسازیم نییە، ئایا ئەمە بۆ من ئاڵۆزە؟",
       faq2A:
-        "پێویست ناکات ئەندازیاری پرۆگرامسازی بیت—تۆ کاسبکارێکی زیرەکیت. ئەگەر بزانیت چۆن لە وەتسئەپ ڤیدیۆ دەنێریت یان لە ئینستاگرام ستۆری دادەنێیت، لە ١٠ چرکەدا دەتوانیت Doblaj بەکاربهێنیت. تەنها ڤیدیۆکەت باردەکەیت، زیرەکی دەستکرد بە عەرەبی عێراقی قسەی پێدەکات و تۆ بڵاوی دەکەیتەوە. تایبەت بۆ کاسبکارانی سەرقاڵ دروستکراوە.",
+        "نەخێر. ئەگەر بتوانیت لە وەتسئەپ ڤیدیۆیەک بنێریت، دەتوانیت ئەم سیستەمە بەکاربهێنیت. تەنها ڤیدیۆکەت لە وەتسئەپ دەنێریت، سیستەمەکە بە شێوەزاری عێراقی وەریدەگێڕێت و دەیداتەوە دەستت.",
 
-      footerLegal: "دروستکراوە بە ❤️ لە کوردستان بۆ بازاڕ و کاسبکارە خۆشەویستەکانمان",
+      respectedExitQuote: "ئەگەر ئەمڕۆ ئامادە نیت، هیچ کێشەیەک نییە. کاتێک کەلوپەلەکەت پێویستی بە فرۆشتن بوو، ئێمە لێرەین.",
+      footerLegal: "دروستکراوە بە ❤️ لە کوردستان بۆ کاسبکارە خۆشەویستەکانمان",
       navFeatures: "جیاوازیی دەنگ",
       navCalculator: "ژمێرەری قازانج",
       navPricing: "نرخەکان",
@@ -200,103 +217,120 @@ export default function SoraniqLandingPage() {
       navStart: "دەستپێکردن",
     },
     ar: {
-      badge: "⚠️ تنبيه: لأصحاب المحلات والمعارض في السليمانية وأربيل",
-      heroHeadlineStart: "السوق المحلي راكد وما بيه سيولة.",
-      heroHeadlineHighlight: "السياح العرب د يصرفون مليارات الدنانير.",
-      heroHeadlineEnd: "محلك ديحچي ويّا يا سوق؟",
+      badge: "⚠️ تقرير تحليلي: واقع أسواق السليمانية وأربيل",
+      heroHeadlineStart: "١٠,٠٠٠$ بضاعة صيفية راكدة في محلك.",
+      heroHeadlineHighlight: "السياح العرب يمرون يومياً أمام بابك.",
+      heroHeadlineEnd: "محلك يتحدث مع أي مصدر سيولة؟",
       heroSub:
-        "لتنتظر رواتب تتأخر. عن طريق نظام الذكاء الاصطناعي مالتنا، دبلج فيديوهات محلك للهجة العراقية بلحظات وحوّل السياح اللي يمرون من يم بابك إلى زبائن حقيقيين.",
-      ctaHeroMassive: "ابدأ الآن فوراً (ربط الواتساب بـ ١٠ ثواني)",
+        "انتظار الرواتب الحكومية لن يحل مشكلة نقص الكاش في محلك. هذا النظام يحول صوت فيديوهاتك من الكردية إلى اللهجة العراقية البغدادية بطلاقة، لجذب السياح الموجودين في مدينتك إلى معرضك.",
+      ctaHeroMassive: "بدء التجربة المباشرة (ربط الواتساب بـ ١٠ ثواني)",
       inputPlaceholder: "اكتب رقم الواتساب (+964 7XX...)",
       ctaPrimary: "اربط رقم الواتساب بـ ١٠ ثواني",
-      ctaSubtext: "تجربة مجانية فورية • بدون الحاجة لبطاقة بنكية",
+      ctaSubtext: "تجربة مباشرة • بدون الحاجة لبطاقة بنكية",
 
       passiveBannerText: "لحظة... متأكد منافسيك بشارع المولوي ما بدأوا يستهدفون ذوله السياح قبلك؟",
       passiveBannerAction: "شوف الحقيقة",
 
-      audioTitle: "اسمع الفرق بين الصوت الكردي والدبلجة العراقية",
-      audioSubtitle: "شوف شلون الصوت الكردي يتحول للهجة بغدادية حقيقية كأنما صاحب المحل ابن بغداد!",
+      mechanismTag: "آلية العمل بـ ٣ خطوات",
+      mechanismTitle: "كيف يعمل النظام بدون أي تعقيد تقني",
+      step1Num: "٠١",
+      step1Title: "تسجيل الفيديو بالسۆراني",
+      step1Desc: "سجل نفس الفيديو الترويجي المعتاد باللغة الكردية لعرض بضائع محلك.",
+      step2Num: "٠٢",
+      step2Title: "الإرسال عبر الواتساب",
+      step2Desc: "أرسل الفيديو للبوت، وخلال ١٠ ثوانٍ يتحول الصوت إلى لهجة عراقية طبيعية مع الحفاظ على الموسيقى الأصلية.",
+      step3Num: "٠٣",
+      step3Title: "النشر لجذب السياح",
+      step3Desc: "انشر الفيديو المدبلج على تيك توك وإنستغرام واستقبل سياح بغداد والبصرة في محلك مباشرة.",
+
+      audioTitle: "اسمع الفرق بين الصوت الأصلي والدبلجة العراقية",
+      audioSubtitle: "مقارنة دقيقة بين الصوت الكردي الأصلي والدبلجة البغدادية الطبيعية.",
       kurdishAudioLabel: "الصوت الأصلي (سۆرانی)",
       iraqiAudioLabel: "الصوت المدبلج باللهجة العراقية (Doblaj AI)",
-      kurdishTranscript: "«بەخێربێن بۆ پێشانگاکەمان، نوێترین مۆدێلی جلوبەرگی هاوینەمان بۆ گەیشتووە بە داشکاندنی تایبەت بۆ ئەم هەفتەیە...»",
-      iraqiTranscript: "«أهلاً وسهلاً بيكم بمعرضنا، وصلتنا أرقى الموديلات الصيفية بتخفيضات خاصة كلش لهالاسبوع، لتفوتكم الفرصة وتعالوا زورونا...»",
+      kurdishTranscript: "«بەخێربێن بۆ پێشانگاکەمان، نوێترین مۆدێلی جلوبەرگی هاوینەمان بۆ گەیشتووە بە داشکاندنی تایبەت بۆ ئەم هەفتەیە.»",
+      iraqiTranscript: "«أهلاً وسهلاً بيكم بمعرضنا، وصلتنا أرقى الموديلات الصيفية بتخفيضات خاصة كلش لهالاسبوع، لتفوتكم الفرصة وتعالوا زورونا.»",
 
-      splitLeftTitle: "(محلك بالوضع الحالي)",
-      splitLeftStatus: "سوق بارد وهادئ 🥀",
-      splitLeftItem1: "❌ انتظار رواتب الموظفين المتأخرة",
-      splitLeftItem2: "❌ بضاعة مكدسة بالمحل بأكثر من دفتر (١٠,٠٠٠$) 📉",
-      splitLeftItem3: "❌ السائح العربي يمر من يم بابك وميشوفك أصلاً",
+      splitLeftTitle: "(وضع محلك الحالي)",
+      splitLeftStatus: "سوق راكد وبضاعة مكدسة 🥀",
+      splitLeftItem1: "❌ أكثر من ١٠,٠٠٠$ بضاعة غير مباعة على الرفوف",
+      splitLeftItem2: "❌ ركود السوق المحلي بسبب تأخر الرواتب 📉",
+      splitLeftItem3: "❌ السائح العربي يمر من أمام محلك دون فهم لغتك",
       splitLeftMetric: "$0 مبيعات من السياح 📉",
 
-      splitRightTitle: "(محلك مع Doblaj AI)",
-      splitRightStatus: "كاش وسياح يومياً 💰",
-      splitRightItem1: "✅ فيديوهاتك الكردية تدبلج فوراً للهجة عراقية بغدادية",
-      splitRightItem2: "✅ السائح يشوفك بالتيك توك ويجيك مباشرة للمحل 📈",
-      splitRightItem3: "✅ مبيعات يومية لسياح بغداد والبصرة 💰",
-      splitRightMetric: "+١,٥٠٠,٠٠٠ دينار تێکڕای أرباح الويكند 📈",
-      splitBottomNote: "(ملاحظة: بيعة واحدة لسائح عربي تطلع تكلفة اشتراك شهر كامل من هذا النظام. باقي الـ ٢٩ يوم أرباح صافية ١٠٠٪ لجيبك).",
+      splitRightTitle: "(وضع محلك مع Doblaj AI)",
+      splitRightStatus: "مبيعات نقدية مستمرة 💰",
+      splitRightItem1: "✅ فيديوهاتك تدبلج فوراً إلى لهجة عراقية طبيعية",
+      splitRightItem2: "✅ السائح يراك على تيك توك ويأتي مباشرة لمعرضك 📈",
+      splitRightItem3: "✅ بيعة واحدة شهرياً تغطي كامل اشتراك النظام 💰",
+      splitRightMetric: "+١,٥٠٠,٠٠٠ دينار متوسط أرباح الويكند 📈",
+      splitBottomNote: "(حسابات رياضية واقعية: بيعة واحدة لسائح عربي في الشهر تغطي تكلفة الـ 20$ للنظام. بقية المبيعات أرباح صافية لك).",
 
-      calcTitle: "حاسبة أرباح السياح لمحلك",
-      calcSubtitle: "لتخمّن وتتحزر. حرك المؤشرات جوا وشوف بالضبط شكد فلوس كاش من السياح العرب د تخلي منافسيك ياخذوها منك كل اسبوع.",
+      calcTitle: "حاسبة الأرباح الضائعة من السياح",
+      calcSubtitle: "حدد المؤشرات حسب هوامش ربح محلك لترى حجم السيولة النقدية الضائعة.",
       calcSlider1Label: "متوسط الربح الصافي من كل سائح:",
-      calcSlider2Label: "عدد السياح العرب:",
-      calcResultProfit: "الأرباح الشهرية الصافية الضائعة:",
-      calcCostNote: "تكلفة النظام: فقط $20 شهرياً. باقي المبلغ أرباح صافية.",
-      calcCtaBtn: "ضيف هاي الأرباح لمحلي 💰",
+      calcSlider2Label: "عدد المشترين السياح المحتملين شهرياً:",
+      calcResultProfit: "الأرباح الشهرية الضائعة من السياح:",
+      calcCostNote: "تكلفة النظام الإجمالية: 20$ شهرياً فقط. بدون أي رسوم خفية.",
+      calcCtaBtn: "إضافة هذه الأرباح لمحلي 💰",
+
+      guaranteeTag: "ضمان واضح وقابل للاختبار",
+      guaranteeTitle: "ضمان استرجاع كامل المبلغ لمدة ٧ أيام",
+      guaranteeBody: "إذا لم تلاحظ طبيعية اللهجة العراقية وفائدتها لمتجرك خلال أول ٧ أيام، بنقرة رسالة واحدة عبر الواتساب نسترجع لك كامل الـ 20$ بدون أي أسئلة.",
 
       pricingAnchor: "تكلفة توظيف مترجم ومعلق صوتي عربي شهرياً:",
       pricingAnchorOld: "$500 / شهرياً",
-      pricingAnchorSave: "وفّر ٩٦٪ فوراً مع Doblaj AI",
-      pricingTitle: "أسعار خطة النجاة وزيادة المبيعات",
-      pricingSubtitle: "بيعة وحدة لسائح عربي تطلعلك تكلفة اشتراك شهر كامل من هذا البرنامج.",
+      pricingAnchorSave: "توفير ٩٦٪ مع Doblaj AI",
+      pricingTitle: "باقات الاشتراك",
+      pricingSubtitle: "بيعة واحدة لسائح عربي تكفي لتغطية اشتراك شهر كامل.",
       billingMonthly: "شهرياً",
       billingAnnual: "سنوياً (شهران مجاناً) ✅",
 
-      decoyTitle: "الباقة التجريبية (فخ)",
+      decoyTitle: "الباقة التجريبية المحدودة",
       decoyPrice: isAnnual ? "$12" : "$15",
       decoyPeriod: "/شهر",
       decoyLimit: "فيديو واحد فقط شهرياً ⚠️",
-      decoyItem1: "❌ معالجة بطيئة",
+      decoyItem1: "❌ معالجة بطيئة في السيرفرات",
       decoyItem2: "❌ دقة عادية 720p",
       decoyItem3: "❌ صوت آلي بسيط",
-      decoyCta: "فيديو واحد فقط ($15)",
+      decoyCta: "الباقة التجريبية ($15)",
 
-      targetBadge: "✅ الأكثر طلباً — خطة التوسع والنمو",
-      targetTitle: "باقة المحلات الذكية",
+      targetBadge: "✅ الخطة الموصى بها للمحلات",
+      targetTitle: "باقة النمو غير المحدودة",
       targetPrice: isAnnual ? "$16" : "$20",
       targetPeriod: "/شهر",
       targetLimit: "فيديوهات غير محدودة (حتى ١٥ دقيقة) 📈",
-      targetItem1: "✅ أولوية قصوى ومعالجة فورية",
-      targetItem2: "✅ لهجة عراقية بغدادية أصلية بمشاعر حقيقية",
-      targetItem3: "✅ تصدير بدقة 4K Ultra-HD للإنستغرام والتيك توك",
-      targetItem4: "✅ عزل صوت الغرفة والموسيقى التصويرية تلقائياً",
-      targetMicroCopy: "تكلفتها أقل من ربح بيع تيشرت واحد بمحلك!",
-      targetCta: "اشترك الآن بـ $20 للفيديوهات غير المحدودة 💰",
+      targetItem1: "✅ معالجة فورية فائقة السرعة",
+      targetItem2: "✅ لهجة عراقية بغدادية أصلية بمشاعر طبيعية",
+      targetItem3: "✅ تصدير بدقة 4K Ultra-HD لمنصات التواصل",
+      targetItem4: "✅ عزل صوتي تلقائي مع الحفاظ على الموسيقى",
+      targetMicroCopy: "تكلفتها أقل من ربح بيع قطعة ملابس واحدة في الشهر.",
+      targetCta: "بدء خطة الـ 20$ غير المحدودة 💰",
 
       anchorTitle: "باقة الوكالات والشركات",
       anchorPrice: isAnnual ? "$79" : "$99",
       anchorPeriod: "/شهر",
       anchorLimit: "١٢٠ دقيقة للفروع المتعددة",
-      anchorItem1: "✅ معالجة VIP بأعلى سرعة سيرفرات",
+      anchorItem1: "✅ أولوية VIP قصوى في المعالجة",
       anchorItem2: "✅ تمييز تلقائي لعدة متحدثين بالفيديو",
       anchorItem3: "✅ استنساخ صوت كادرك الخاص",
       anchorItem4: "✅ ربط برمجيات API ودعم فني مخصص",
       anchorCta: "باقة الوكالات ($99)",
 
-      paymentTrust: "دفع آمن وسهل عبر فاست باي (FastPay)، زين كاش، FIB، آسيا حوالة، فيزا وماستركارد.",
+      paymentTrust: "الدفع متاح عبر فاست باي (FastPay)، FIB، زين كاش، آسيا حوالة، فيزا وماستركارد.",
 
-      faqTitle: "إجابات على مخاوفك وترددك",
-      faqSubtitle: "اقرأها قبل ما المحل اللي بصفك يسحب كل سياح شارعكم.",
+      faqTitle: "إجابة على سؤالين أساسيين",
+      faqSubtitle: "اقرأ هذين البندين بوضوح قبل اتخاذ قرارك.",
 
-      faq1Q: "ليش ما أحط ترجمة كتابية (Subtitles) مجانية على الفيديو وخلاص؟",
+      faq1Q: "لماذا لا أكتفي بوضع ترجمة كتابية (Subtitles) مجانية على الفيديو؟",
       faq1A:
-        "محد يفتر بالسوق المزدحم أو يقلب بالتيك توك ويكعد يقرا كتابة ناعمة. السائح العراقي يشتري من يسمع صوت عراقي حقيقي ولهجة بغدادية مألوفة ترحب بيه مباشرة. الكتابة الناس تتخطاها بـ ٠.٥ ثانية، بس الصوت العراقي الطبيعي يسحب الزبون لمحلك بثواني.",
+        "السائح أثناء تجوله في السوق أو تصفحه السريع للتيك توك لا يركز على قراءة نصوص الترجمة. قرار الشراء يتولد عندما يسمع صوتاً بغدادياً أو بصرياً يرحب به بلهجته المألوفة. الترجمة الكتابية يتم تخطيها، بينما الصوت الطبيعي يجذب الانتباه.",
 
-      faq2Q: "أني صاحب محل مو مبرمج، هل البرنامج صعب ومعقد عليّ؟",
+      faq2Q: "أنا صاحب متجر ولست مبرمجاً، هل استخدام النظام معقد؟",
       faq2A:
-        "ما تحتاج تكون خبير تقني—أنت صاحب عمل ذكي. إذا تعرف تدز فيديو بالواتساب أو تنشر ستوري بالانستغرام، تكدر تستعمل Doblaj بـ ١٠ ثواني. ترفع الفيديو الكردي، الذكاء الاصطناعي يدبلجه باللهجة العراقية، وتنشره. مصمم خصيصاً لأصحاب المحلات المشغولين اللي يريدون مبيعات بدون دوخة رأس.",
+        "لا إطلاقاً. إذا كنت تستطيع إرسال فيديو عبر الواتساب، فأنت قادر على استخدام النظام. ترسل الفيديو للواتساب، والنظام يعيده مدبلجاً بالعراقية فوراً.",
 
-      footerLegal: "صُنع بـ ❤️ في كوردستان من أجل أسواقنا ومحلاتنا المحلية",
+      respectedExitQuote: "إذا مو مستعد اليوم، ماكو أي مشكلة. إحنا هنا شوكت ما تحتاج تحرّك بضاعتك وتبيعها للسياح.",
+      footerLegal: "صُنع بـ ❤️ في كوردستان من أجل محلاتنا المحلية",
       navFeatures: "مقارنة الصوت",
       navCalculator: "حاسبة الأرباح",
       navPricing: "الأسعار",
@@ -305,102 +339,119 @@ export default function SoraniqLandingPage() {
       navStart: "ابدأ الآن",
     },
     en: {
-      badge: "⚠️ ATTENTION: SULAIMANIYAH & ERBIL RETAIL OWNERS",
-      heroHeadlineStart: "The local market is frozen.",
-      heroHeadlineHighlight: "The Arab tourists are spending billions of dinars.",
-      heroHeadlineEnd: "Which market is your store talking to?",
+      badge: "⚠️ MARKET REPORT: SULAIMANIYAH & ERBIL RETAIL REALITY",
+      heroHeadlineStart: "$10,000 in frozen seasonal inventory.",
+      heroHeadlineHighlight: "Arab tourists walk past your store every single day.",
+      heroHeadlineEnd: "Which pool of capital is your store marketing to?",
       heroSub:
-        "Stop waiting for delayed salaries. With our AI system, instantly dub your store's videos into Iraqi Arabic and turn the tourists walking past your door into real paying customers.",
-      ctaHeroMassive: "Start Immediately (Link WhatsApp in 10 Seconds)",
+        "Waiting for government payroll does not solve local cash flow shortages. Our AI dubs your promotional videos into natural Iraqi Arabic, bringing tourists in your city directly into your showroom.",
+      ctaHeroMassive: "Start Direct Trial (Link WhatsApp in 10 Seconds)",
       inputPlaceholder: "Enter WhatsApp number (+964 7XX...)",
-      ctaPrimary: "Link My WhatsApp in 10 Seconds",
-      ctaSubtext: "100% Free Demo • No credit card required to test",
+      ctaPrimary: "Link WhatsApp in 10 Seconds",
+      ctaSubtext: "Instant Trial • No credit card required",
 
       passiveBannerText: "Wait... are you sure your competitors on Mawlawi Street aren't already targeting these tourists?",
       passiveBannerAction: "See Why",
 
-      audioTitle: "Hear The Dialect Precision",
-      audioSubtitle: "Listen to how raw Kurdish promotional video audio transforms into friendly Baghdad dialect that tourists instantly trust:",
+      mechanismTag: "3-Step Mechanism",
+      mechanismTitle: "How It Works Without Technical Complexity",
+      step1Num: "01",
+      step1Title: "Record in Kurdish Sorani",
+      step1Desc: "Record the exact same everyday product walkthrough video in Kurdish Sorani as you normally do.",
+      step2Num: "02",
+      step2Title: "Send via WhatsApp",
+      step2Desc: "Send the video to our bot. In 10 seconds, it dubs the audio into natural Iraqi Arabic while keeping original music and room tone.",
+      step3Num: "03",
+      step3Title: "Publish for Tourist Traffic",
+      step3Desc: "Post to TikTok and Instagram to bring Baghdad and Basra tourists straight into your store.",
+
+      audioTitle: "Compare Original Kurdish vs. Iraqi Arabic Dub",
+      audioSubtitle: "Verifiable side-by-side comparison between original Kurdish Sorani and native Baghdad cadence.",
       kurdishAudioLabel: "Original Kurdish Sorani",
       iraqiAudioLabel: "Dubbed Iraqi Arabic (Doblaj AI)",
-      kurdishTranscript: "«Welcome to our showroom! The latest summer collection has arrived with special promotional discounts for this week...»",
-      iraqiTranscript: "«Welcome everyone to our showroom! Top summer collections have arrived with huge discounts just for this week, don't miss out...»",
+      kurdishTranscript: "«Welcome to our showroom! The latest summer collection has arrived with special promotional discounts for this week.»",
+      iraqiTranscript: "«Welcome everyone to our showroom! Top summer collections have arrived with huge discounts just for this week, don't miss out.»",
 
       splitLeftTitle: "(Your Store Right Now)",
-      splitLeftStatus: "Cold & Silent 🥀",
-      splitLeftItem1: "❌ Waiting for delayed local government salaries",
-      splitLeftItem2: "❌ Over $10,000+ in unsold seasonal inventory piling up 📉",
-      splitLeftItem3: "❌ Arab tourists walk right past your door without noticing you",
+      splitLeftStatus: "Cold & Stagnant Inventory 🥀",
+      splitLeftItem1: "❌ Over $10,000+ in unsold inventory sitting on shelves",
+      splitLeftItem2: "❌ Local retail slowdown due to delayed government salaries 📉",
+      splitLeftItem3: "❌ Arab tourists walk right past without understanding your audio",
       splitLeftMetric: "$0 Tourist Revenue 📉",
 
       splitRightTitle: "(Your Store With Doblaj AI)",
-      splitRightStatus: "Continuous Cash Flow 💰",
-      splitRightItem1: "✅ Kurdish videos instantly dubbed into fluent Iraqi dialect",
-      splitRightItem2: "✅ Tourists see you on TikTok and come directly to your store 📈",
-      splitRightItem3: "✅ Daily sales to tourists from Baghdad and Basra 💰",
+      splitRightStatus: "Consistent Cash Sales 💰",
+      splitRightItem1: "✅ Kurdish videos converted to fluent Iraqi dialect",
+      splitRightItem2: "✅ Tourists find you on TikTok and walk directly inside 📈",
+      splitRightItem3: "✅ Just one sale per month covers the full $20 software fee 💰",
       splitRightMetric: "+1,500,000 IQD Avg. Weekend Profit 📈",
-      splitBottomNote: "(Note: Just ONE sale to an Arab tourist covers the entire monthly cost of this system. The remaining 29 days are 100% pure profit for you).",
+      splitBottomNote: "(Mathematical Fact: Just ONE tourist purchase covers the entire $20 monthly cost. All remaining sales are 100% pure profit).",
 
-      calcTitle: "Tourist Cash Lift Calculator",
-      calcSubtitle: "Stop guessing. Move the sliders below to see exactly how much Arab cash you are letting your competitors steal every single week.",
+      calcTitle: "Missed Tourist Cash Flow Calculator",
+      calcSubtitle: "Adjust the sliders based on your actual profit margins to calculate missed tourist revenue.",
       calcSlider1Label: "Average Profit per Arab Customer:",
-      calcSlider2Label: "Number of Arab Customers:",
-      calcResultProfit: "Monthly Lost Tourist Revenue:",
-      calcCostNote: "System Cost: Only $20/mo. The rest is 100% pure profit.",
-      calcCtaBtn: "Add This Profit to My Store 💰",
+      calcSlider2Label: "Potential Arab Tourist Buyers per Month:",
+      calcResultProfit: "Monthly Missed Tourist Revenue:",
+      calcCostNote: "Total System Cost: $20/month flat. Zero hidden fees.",
+      calcCtaBtn: "Capture This Missed Revenue 💰",
+
+      guaranteeTag: "Falsifiable Guarantee",
+      guaranteeTitle: "100% 7-Day Money-Back Guarantee",
+      guaranteeBody: "If within the first 7 days you are not satisfied with dialect naturalness or business utility, send a single WhatsApp message and we will refund your $20 immediately with zero questions asked.",
 
       pricingAnchor: "Hiring a human Arabic voice translator:",
       pricingAnchorOld: "$500 / month",
       pricingAnchorSave: "Save 96% with Doblaj AI",
-      pricingTitle: "The Survival Pricing",
-      pricingSubtitle: "Just one sale to an Arab tourist pays for an entire month of this system.",
+      pricingTitle: "Subscription Plans",
+      pricingSubtitle: "Just one tourist sale covers the full monthly system fee.",
       billingMonthly: "Monthly",
       billingAnnual: "Annual (2 Months Free) ✅",
 
-      decoyTitle: "Decoy Starter",
+      decoyTitle: "Limited Trial Tier",
       decoyPrice: isAnnual ? "$12" : "$15",
       decoyPeriod: "/mo",
-      decoyLimit: "Strict Limit: 1 Single Video / month ⚠️",
-      decoyItem1: "❌ Slow queue processing",
+      decoyLimit: "Strict Limit: 1 Video / month ⚠️",
+      decoyItem1: "❌ Slower server queue processing",
       decoyItem2: "❌ Standard 720p export",
-      decoyItem3: "❌ Basic mechanical voice",
-      decoyCta: "Get 1 Video ($15)",
+      decoyItem3: "❌ Basic synthetic voice model",
+      decoyCta: "Trial Plan ($15)",
 
-      targetBadge: "✅ MOST POPULAR — UNLIMITED EXPANSION",
-      targetTitle: "Retail Growth Target",
+      targetBadge: "✅ Recommended Retail Plan",
+      targetTitle: "Unlimited Retail Growth",
       targetPrice: isAnnual ? "$16" : "$20",
       targetPeriod: "/mo",
       targetLimit: "Unlimited Videos (Up to 15 mins total) 📈",
-      targetItem1: "✅ Priority instant processing",
-      targetItem2: "✅ Premium authentic Iraqi dialect & emotion",
-      targetItem3: "✅ 4K Ultra-HD export for Instagram & TikTok",
-      targetItem4: "✅ Preserves original background music & room audio",
-      targetMicroCopy: "Costs less than the profit of selling ONE single t-shirt.",
-      targetCta: "Claim $20 Unlimited Access Now 💰",
+      targetItem1: "✅ Instant priority processing queue",
+      targetItem2: "✅ Authentic Iraqi dialect with natural pacing",
+      targetItem3: "✅ 4K Ultra-HD export for social channels",
+      targetItem4: "✅ Background audio separation & music preservation",
+      targetMicroCopy: "Costs less than the profit of selling one clothing item in a month.",
+      targetCta: "Start $20 Unlimited Access 💰",
 
-      anchorTitle: "Commercial Agency",
+      anchorTitle: "Agency & Enterprise",
       anchorPrice: isAnnual ? "$79" : "$99",
       anchorPeriod: "/mo",
-      anchorLimit: "120 Minutes Multi-Branch Power",
-      anchorItem1: "✅ Dedicated VIP processing queue",
+      anchorLimit: "120 Minutes Multi-Branch Capacity",
+      anchorItem1: "✅ Dedicated VIP server infrastructure",
       anchorItem2: "✅ Unlimited multi-speaker detection",
-      anchorItem3: "✅ Custom voice cloning for your staff",
-      anchorItem4: "✅ Direct API + 24/7 priority support",
-      anchorCta: "Get Agency Tier ($99)",
+      anchorItem3: "✅ Custom voice cloning for showroom staff",
+      anchorItem4: "✅ Direct API integration & priority support",
+      anchorCta: "Agency Plan ($99)",
 
-      paymentTrust: "Pay securely with FastPay, FIB, ZainCash, AsiaHawala, Visa, or Mastercard.",
+      paymentTrust: "Secure payment via FastPay, FIB, ZainCash, AsiaHawala, Visa, or Mastercard.",
 
-      faqTitle: "Frequently Answered Objections",
-      faqSubtitle: "Read before your competitor on your street takes your tourist customers.",
+      faqTitle: "Two Core Practical Questions",
+      faqSubtitle: "Read these two points clearly before making any decision.",
 
-      faq1Q: "Can't I just put free Arabic subtitles (text) on my Kurdish videos?",
+      faq1Q: "Why not simply put free Arabic text subtitles on my video?",
       faq1A:
-        "Nobody walking through a noisy bazaar or rapidly scrolling TikTok stops to read small text subtitles while shopping. Tourists buy with their ears when they hear a friendly, authentic Iraqi voice greeting them directly in their own Baghdad dialect. Subtitles get skipped in 0.5 seconds; native audio dubbing turns scrolling tourists into paying in-store customers instantly.",
+        "Tourists walking through busy bazaars or scrolling TikTok do not stop to read subtitle text. Purchasing intent triggers when they hear a warm, native Baghdad or Basra voice addressing them in their own dialect. Subtitles are easily skipped, while native audio captures immediate attention.",
 
-      faq2Q: "I'm just a shopkeeper, not a tech expert. Is this too complicated for me?",
+      faq2Q: "I am a shop owner, not a software engineer. Is this complicated?",
       faq2A:
-        "You don't need to be a software engineer—you're a smart business owner. If you know how to send a video on WhatsApp or post a story on Instagram, you can use Doblaj in 10 seconds. You simply upload your video, our AI speaks it in natural Iraqi Arabic, and you post it. It was built specifically for busy Kurdish shop owners who want sales, not tech headaches.",
+        "Not at all. If you know how to send a video on WhatsApp, you can use this system. You send the video to WhatsApp, and the system returns it dubbed in Iraqi Arabic in seconds.",
 
+      respectedExitQuote: "Not ready today? That is completely fine. We are here whenever you need to move inventory.",
       footerLegal: "Built with ❤️ in Kurdistan for our local retail markets",
       navFeatures: "Voice Demo",
       navCalculator: "ROI Calculator",
@@ -416,7 +467,7 @@ export default function SoraniqLandingPage() {
       dir={isRTL ? "rtl" : "ltr"}
       className={`min-h-screen ${isRTL ? "font-kurdish" : "font-sans"} antialiased selection:bg-emerald-500/25 selection:text-emerald-800 relative overflow-x-hidden`}
     >
-      {/* 1. PASSIVE PATTERN INTERRUPT STICKY BANNER (Tactic #28 Refined) */}
+      {/* PASSIVE PATTERN INTERRUPT STICKY BANNER */}
       <AnimatePresence>
         {showPassiveBanner && (
           <motion.div
@@ -537,71 +588,63 @@ export default function SoraniqLandingPage() {
       </nav>
 
       {/* =========================================================================
-          PAIN STATE (HEAVY, SUFFOCATING CHARCOAL-BLACK OBSIDIAN ATMOSPHERE)
+          SECTION 1: THE CLINICAL DIAGNOSIS (HERO SECTION)
+          Flat reality of unsold inventory vs Arab tourist capital
           ========================================================================= */}
       <div className="bg-[#040407] text-[#cfcfd3] transition-colors duration-1000 relative">
-        {/* Ambient Pain Noise & Cold Ruby/Emerald Beams */}
         <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-          <div className="absolute top-[-10%] left-[15%] w-[650px] h-[650px] rounded-full bg-emerald-500/[0.08] blur-[150px] animate-pulse"></div>
+          <div className="absolute top-[-10%] left-[15%] w-[650px] h-[650px] rounded-full bg-emerald-500/[0.08] blur-[150px]"></div>
           <div className="absolute top-[35%] right-[-10%] w-[550px] h-[550px] rounded-full bg-rose-600/[0.08] blur-[170px]"></div>
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff04_1px,transparent_1px),linear-gradient(to_bottom,#ffffff04_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_10%,#000_70%,transparent_100%)] opacity-70"></div>
         </div>
 
-        {/* SECTION 1: THE HERO SECTION (Extreme Contrast & Lethal Framing) */}
         <section id="contrast-hero" className="relative pt-36 sm:pt-44 pb-20 px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto z-10">
-          {/* Warning Indicator */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             className="flex justify-center mb-8"
           >
-            <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs sm:text-sm font-black tracking-wide shadow-[0_0_30px_rgba(244,63,94,0.2)]">
-              <span className="relative flex h-3 w-3">
+            <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs sm:text-sm font-bold tracking-wide">
+              <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-rose-500 shadow-[0_0_10px_#f43f5e]"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500"></span>
               </span>
               <span>{t.badge}</span>
             </div>
           </motion.div>
 
-          {/* Shock Headline */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-center max-w-4xl mx-auto mb-12 space-y-5"
           >
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.3]">
-              {/* The Cold Pain: Dead light gray representing boring reality */}
-              <span className="text-[#9ca3af] block mb-3 text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-normal">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.35]">
+              <span className="text-[#a1a1aa] block mb-3 text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-normal">
                 {t.heroHeadlineStart}
               </span>
-              {/* The Target Outcome: Glowing Emerald */}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-teal-300 to-emerald-400 block mb-4 text-3xl sm:text-5xl lg:text-6xl font-black drop-shadow-[0_0_45px_rgba(16,185,129,0.45)]">
                 {t.heroHeadlineHighlight}
               </span>
-              {/* The Closing Question: Crisp pure white */}
               <span className="text-white block text-2xl sm:text-4xl lg:text-5xl font-black">
                 {t.heroHeadlineEnd}
               </span>
             </h1>
 
-            {/* Subheadline */}
             <p className="text-base sm:text-xl lg:text-2xl text-zinc-300 max-w-3xl mx-auto font-medium leading-[2.1] sm:leading-[2.3] pt-4 px-2">
               {t.heroSub}
             </p>
           </motion.div>
 
-          {/* LETHAL SPLIT SCREEN COMPARISON (Frozen Store vs Active Tourist Wealth) */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.25 }}
             className="grid lg:grid-cols-2 gap-8 items-stretch"
           >
-            {/* Left: The Dark / Pain Store */}
-            <div className="bg-gradient-to-b from-[#140b10] via-[#0d070b] to-[#070407] border border-rose-900/40 rounded-3xl p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden shadow-2xl group hover:border-rose-700/60 transition-all duration-300">
+            {/* Clinical Diagnosis: Stagnant Inventory Reality */}
+            <div className="bg-gradient-to-b from-[#140b10] via-[#0d070b] to-[#070407] border border-rose-900/40 rounded-3xl p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden shadow-2xl">
               <div className="absolute top-0 right-0 left-0 h-1.5 bg-gradient-to-r from-rose-800 to-rose-500"></div>
               <div>
                 <div className="flex justify-between items-center mb-6">
@@ -626,7 +669,7 @@ export default function SoraniqLandingPage() {
                 </ul>
               </div>
               <div className="p-5 rounded-2xl bg-black/70 border border-rose-900/50 text-center">
-                <div className="text-xs uppercase font-black text-rose-400 tracking-wider mb-1">
+                <div className="text-xs uppercase font-bold text-rose-400 tracking-wider mb-1">
                   Tourist Revenue Result
                 </div>
                 <div className="text-3xl sm:text-4xl font-black text-rose-500 font-mono">
@@ -635,8 +678,8 @@ export default function SoraniqLandingPage() {
               </div>
             </div>
 
-            {/* Right: The Wealth / Escape Store */}
-            <div className="bg-gradient-to-b from-[#0a2016] via-[#06170f] to-[#030d08] border-2 border-emerald-500/90 rounded-3xl p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden shadow-[0_0_60px_rgba(16,185,129,0.25)] group hover:border-emerald-400 transition-all duration-300">
+            {/* Falsifiable Math: Incremental Tourist Revenue */}
+            <div className="bg-gradient-to-b from-[#0a2016] via-[#06170f] to-[#030d08] border-2 border-emerald-500/90 rounded-3xl p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden shadow-[0_0_60px_rgba(16,185,129,0.25)]">
               <div className="absolute top-0 right-0 left-0 h-2 bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.8)]"></div>
               <div>
                 <div className="flex justify-between items-center mb-6">
@@ -645,7 +688,7 @@ export default function SoraniqLandingPage() {
                   </span>
                   <span className="text-xs font-mono text-emerald-400/90 uppercase font-bold flex items-center gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                    <span>ACTIVE REVENUE</span>
+                    <span>INCREMENTAL CASH</span>
                   </span>
                 </div>
                 <h3 className="text-xl sm:text-2xl font-black text-[#fafafa] mb-6">
@@ -664,8 +707,8 @@ export default function SoraniqLandingPage() {
                 </ul>
               </div>
               <div className="p-5 rounded-2xl bg-[#040a07]/90 border border-emerald-500/60 text-center shadow-[0_0_25px_rgba(16,185,129,0.2)]">
-                <div className="text-xs uppercase font-black text-emerald-400 tracking-wider mb-1">
-                  Tourist Revenue Added
+                <div className="text-xs uppercase font-bold text-emerald-400 tracking-wider mb-1">
+                  Incremental Tourist Revenue Added
                 </div>
                 <div className="text-3xl sm:text-4xl font-black text-emerald-400 font-mono drop-shadow-[0_0_20px_rgba(16,185,129,0.5)]">
                   {t.splitRightMetric}
@@ -674,7 +717,6 @@ export default function SoraniqLandingPage() {
             </div>
           </motion.div>
 
-          {/* MASSIVE GLOWING HERO CTA BUTTON */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -691,7 +733,7 @@ export default function SoraniqLandingPage() {
               <div className="absolute inset-0 bg-white/30 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
             </Link>
 
-            <p className="mt-5 text-sm sm:text-base lg:text-lg font-bold text-emerald-300/95 max-w-2xl mx-auto leading-relaxed px-4 drop-shadow-[0_0_20px_rgba(16,185,129,0.25)]">
+            <p className="mt-5 text-sm sm:text-base lg:text-lg font-bold text-emerald-300/95 max-w-2xl mx-auto leading-relaxed px-4">
               {t.splitBottomNote}
             </p>
           </motion.div>
@@ -699,28 +741,52 @@ export default function SoraniqLandingPage() {
       </div>
 
       {/* =========================================================================
-          3. STATE-CHANGE BACKGROUND SHIFT (TRANSITION FROM DEPRESSION TO RELIEF)
-          Lifting the dark psychological weight off the screen as solution appears!
+          SECTION 2: FALSIFIABLE AUTHORITY (THE 3-STEP MECHANISM & VOICE DEMO)
+          Clean, jargon-free step explanation with audio spectrum verification
           ========================================================================= */}
       <div className="bg-gradient-to-b from-[#040407] via-[#f1f5f9] to-[#ffffff] text-zinc-900 transition-colors duration-1000">
-        {/* SECTION 2: INTERACTIVE "HEAR THE DIFFERENCE" LIVE DUBBING PREVIEW PLAYER */}
-        <section id="voice-demo" className="py-24 px-4 sm:px-6 lg:px-10 border-t border-white/10 relative z-10">
+        <section id="mechanism" className="py-20 px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto z-10 border-t border-white/10">
+          <div className="text-center max-w-3xl mx-auto mb-14 space-y-3">
+            <div className="inline-block px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest bg-emerald-600 text-white shadow-md">
+              {t.mechanismTag}
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-zinc-900 tracking-tight">
+              {t.mechanismTitle}
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-white rounded-3xl p-8 border-2 border-zinc-200 shadow-lg relative">
+              <div className="text-4xl font-black font-mono text-emerald-600 mb-4">{t.step1Num}</div>
+              <h3 className="text-xl font-bold text-zinc-900 mb-3">{t.step1Title}</h3>
+              <p className="text-zinc-600 text-sm leading-relaxed">{t.step1Desc}</p>
+            </div>
+            <div className="bg-white rounded-3xl p-8 border-2 border-emerald-500 shadow-xl relative">
+              <div className="text-4xl font-black font-mono text-emerald-600 mb-4">{t.step2Num}</div>
+              <h3 className="text-xl font-bold text-zinc-900 mb-3">{t.step2Title}</h3>
+              <p className="text-zinc-600 text-sm leading-relaxed">{t.step2Desc}</p>
+            </div>
+            <div className="bg-white rounded-3xl p-8 border-2 border-zinc-200 shadow-lg relative">
+              <div className="text-4xl font-black font-mono text-emerald-600 mb-4">{t.step3Num}</div>
+              <h3 className="text-xl font-bold text-zinc-900 mb-3">{t.step3Title}</h3>
+              <p className="text-zinc-600 text-sm leading-relaxed">{t.step3Desc}</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Live Audio Comparison Console */}
+        <section id="voice-demo" className="py-16 px-4 sm:px-6 lg:px-10 relative z-10">
           <div className="max-w-5xl mx-auto">
-            <div className="text-center max-w-3xl mx-auto mb-14 space-y-3">
-              <div className="inline-block px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest bg-emerald-600 text-white shadow-md">
-                {isRTL ? "کواڵێتی دەنگ و شێوەزار" : "ACOUSTIC PRECISION ENGINE"}
-              </div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-zinc-900 tracking-tight">
+            <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
+              <h3 className="text-2xl sm:text-3xl font-black text-zinc-900 tracking-tight">
                 {t.audioTitle}
-              </h2>
-              <p className="text-base sm:text-lg text-zinc-700 font-bold leading-relaxed">
+              </h3>
+              <p className="text-base text-zinc-600 font-medium">
                 {t.audioSubtitle}
               </p>
             </div>
 
-            {/* Interactive Player Console */}
-            <div className="bg-white rounded-3xl p-6 sm:p-10 border-2 border-zinc-200/90 shadow-2xl relative overflow-hidden">
-              {/* Audio Mode Tabs */}
+            <div className="bg-white rounded-3xl p-6 sm:p-10 border-2 border-zinc-200 shadow-2xl relative overflow-hidden">
               <div className="flex flex-col sm:flex-row gap-3 mb-8 bg-zinc-100 p-2 rounded-2xl border border-zinc-200 relative">
                 <button
                   onClick={() => { setActiveAudioTab("kurdish"); setAudioProgress(0); }}
@@ -744,7 +810,6 @@ export default function SoraniqLandingPage() {
                 </button>
               </div>
 
-              {/* Simulated Live Waveform & Playback Visualizer */}
               <div className="bg-zinc-900 text-white p-6 sm:p-8 rounded-2xl border border-zinc-800 mb-8 space-y-6 shadow-inner">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3.5">
@@ -772,7 +837,6 @@ export default function SoraniqLandingPage() {
                   </div>
                 </div>
 
-                {/* Dynamic Spectrum Waveform Bars (28 Bars) */}
                 <div className="flex items-center justify-between gap-1 sm:gap-1.5 h-16 px-2">
                   {[18, 35, 60, 85, 45, 90, 75, 40, 65, 95, 80, 50, 70, 100, 85, 60, 45, 80, 65, 40, 90, 75, 55, 30, 65, 85, 45, 20].map((h, i) => (
                     <div
@@ -789,7 +853,6 @@ export default function SoraniqLandingPage() {
                   ))}
                 </div>
 
-                {/* Spoken Transcript Box */}
                 <div className="p-4 sm:p-5 rounded-xl bg-zinc-800/80 border border-zinc-700 text-xs sm:text-sm font-medium text-zinc-100 leading-relaxed">
                   <span className="text-zinc-400 text-xs block mb-1.5 font-bold">
                     {isRTL ? "دەقی قسەکراو لە ڤیدیۆکەدا:" : "Spoken Video Dialogue:"}
@@ -799,19 +862,15 @@ export default function SoraniqLandingPage() {
                   </span>
                 </div>
               </div>
-
-              <div className="text-center">
-                <span className="text-xs font-mono text-emerald-800 bg-emerald-100 border border-emerald-300 px-4 py-2 rounded-full font-bold inline-flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-600 animate-ping"></span>
-                  <span>Tested with Arab tourists across Baghdad, Basra, and Najaf with 99.4% dialect comprehension</span>
-                </span>
-              </div>
             </div>
           </div>
         </section>
 
-        {/* SECTION 3: INTERACTIVE ROI / PROFIT LIFT SIMULATOR */}
-        <section id="roi-calculator" className="py-24 px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto z-10">
+        {/* =========================================================================
+            SECTION 3: THE ROI REALITY CHECK (CALCULATOR UI)
+            Direct input of profit margin and volume with flat $20 footnote
+            ========================================================================= */}
+        <section id="roi-calculator" className="py-20 px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto z-10">
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
             <div className="inline-block px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest bg-emerald-600 text-white shadow-md">
               {isRTL ? "داهات و قازانجی ڕاستەقینە" : "PROFIT PROJECTION"}
@@ -825,9 +884,7 @@ export default function SoraniqLandingPage() {
           </div>
 
           <div className="grid lg:grid-cols-12 gap-8 items-stretch bg-white rounded-3xl p-6 sm:p-10 border-2 border-zinc-200/90 shadow-2xl">
-            {/* Sliders Input Panel (Right column in RTL, 7 Cols) */}
             <div className="lg:col-span-7 space-y-8 flex flex-col justify-center">
-              {/* Slider 1: Average Profit per Arab Customer */}
               <div className="space-y-3 bg-zinc-50 p-5 sm:p-6 rounded-2xl border border-zinc-200">
                 <div className="flex justify-between items-center text-sm sm:text-base font-bold text-zinc-900">
                   <span>{t.calcSlider1Label}</span>
@@ -851,7 +908,6 @@ export default function SoraniqLandingPage() {
                 </div>
               </div>
 
-              {/* Slider 2: Number of Arab Customers */}
               <div className="space-y-3 bg-zinc-50 p-5 sm:p-6 rounded-2xl border border-zinc-200">
                 <div className="flex justify-between items-center text-sm sm:text-base font-bold text-zinc-900">
                   <span>{t.calcSlider2Label}</span>
@@ -876,7 +932,6 @@ export default function SoraniqLandingPage() {
               </div>
             </div>
 
-            {/* Result Output Card (Left column in RTL, 5 Cols) */}
             <div className="lg:col-span-5 bg-gradient-to-b from-emerald-900 via-emerald-950 to-zinc-950 text-white rounded-2xl p-6 sm:p-8 border-2 border-emerald-500 shadow-[0_0_50px_rgba(16,185,129,0.3)] flex flex-col justify-between text-center space-y-6">
               <div className="space-y-3">
                 <div className="text-sm sm:text-base font-bold text-emerald-200 tracking-normal">
@@ -900,10 +955,30 @@ export default function SoraniqLandingPage() {
           </div>
         </section>
 
-        {/* SECTION 4: THE PRICING GUILLOTINE (Decoy Effect & Staggered Anchor-First Load) */}
-        <section ref={pricingSectionRef} id="pricing" className="py-24 px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto z-10">
+        {/* =========================================================================
+            SECTION 4: THE FALSIFIABLE GUARANTEE (TRUST & LOCAL RISK REVERSAL)
+            Concrete 7-day refund guarantee with local payment verification
+            ========================================================================= */}
+        <section id="guarantee" className="py-16 px-4 sm:px-6 lg:px-10 max-w-5xl mx-auto z-10">
+          <div className="bg-emerald-50 border-2 border-emerald-300 rounded-3xl p-8 sm:p-10 text-center space-y-4 shadow-md">
+            <div className="inline-block px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest bg-emerald-700 text-white">
+              {t.guaranteeTag}
+            </div>
+            <h3 className="text-2xl sm:text-3xl font-black text-emerald-950">
+              {t.guaranteeTitle}
+            </h3>
+            <p className="text-base sm:text-lg text-emerald-900 font-medium max-w-3xl mx-auto leading-relaxed">
+              {t.guaranteeBody}
+            </p>
+          </div>
+        </section>
+
+        {/* =========================================================================
+            SECTION 5: THE "OPEN DOOR" CHECKOUT (PRICING ARCHITECTURE)
+            $20 Flat fee anchored against human translator ($500/mo)
+            ========================================================================= */}
+        <section ref={pricingSectionRef} id="pricing" className="py-20 px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto z-10">
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-            {/* Top Crossed-out Human Anchor */}
             <div className="inline-flex flex-col sm:flex-row items-center gap-2 p-3.5 sm:px-6 sm:py-2.5 rounded-2xl bg-rose-50 border border-rose-200 text-sm font-bold shadow-sm">
               <span className="text-zinc-600">{t.pricingAnchor}</span>
               <span className="line-through text-rose-600 font-extrabold text-base">{t.pricingAnchorOld}</span>
@@ -919,7 +994,6 @@ export default function SoraniqLandingPage() {
               {t.pricingSubtitle}
             </p>
 
-            {/* Billing Cycle Switch */}
             <div className="flex justify-center items-center gap-3 pt-4">
               <span className={`text-xs font-bold ${!isAnnual ? "text-zinc-900 font-black" : "text-zinc-400"}`}>{t.billingMonthly}</span>
               <button
@@ -932,12 +1006,8 @@ export default function SoraniqLandingPage() {
             </div>
           </div>
 
-          {/* 3 Manipulated Tiers:
-              Anchor-First Sequential Loading (Tactic #10 & #12):
-              The $99 Agency Plan appears first and alone for 0.8s on the FAR RIGHT.
-              Then $15 Decoy and $20 Target snap into place instantly! */}
           <div className="grid lg:grid-cols-3 gap-8 items-center max-w-6xl mx-auto min-h-[580px]">
-            {/* Card 1: The Anchor ($99 - Agency) -> First Child = Far Right in RTL */}
+            {/* Card 1: The Anchor ($99 - Agency) -> Far Right in RTL */}
             <div className="bg-zinc-900 text-white rounded-3xl p-6 sm:p-8 border border-zinc-700 flex flex-col justify-between shadow-2xl transition-all h-full">
               <div>
                 <div className="text-xs uppercase font-mono text-zinc-400 font-bold mb-2">
@@ -965,7 +1035,7 @@ export default function SoraniqLandingPage() {
               </Link>
             </div>
 
-            {/* Card 2: The Target ($20 - Most Popular) -> Middle Child (Snaps in after 0.8s) */}
+            {/* Card 2: The Target ($20 - Most Popular) -> Middle Child */}
             <div
               className={`bg-gradient-to-b from-emerald-900 via-emerald-950 to-zinc-950 text-white rounded-3xl p-8 sm:p-10 border-2 border-emerald-400 flex flex-col justify-between relative shadow-[0_0_60px_rgba(16,185,129,0.35)] transform lg:-translate-y-4 h-full ${
                 tiersRevealed ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
@@ -1003,7 +1073,7 @@ export default function SoraniqLandingPage() {
               </Link>
             </div>
 
-            {/* Card 3: The Decoy ($15) -> Third Child = Far Left in RTL (Snaps in after 0.8s) */}
+            {/* Card 3: The Decoy ($15) -> Far Left in RTL */}
             <div
               className={`bg-zinc-100 rounded-3xl p-6 sm:p-8 border border-zinc-200 flex flex-col justify-between text-zinc-800 h-full ${
                 tiersRevealed ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
@@ -1035,7 +1105,6 @@ export default function SoraniqLandingPage() {
             </div>
           </div>
 
-          {/* Local Payment Trust Badges */}
           <div className="text-center mt-14 space-y-4">
             <div className="text-xs sm:text-sm font-semibold text-zinc-600">
               {t.paymentTrust}
@@ -1050,7 +1119,10 @@ export default function SoraniqLandingPage() {
           </div>
         </section>
 
-        {/* SECTION 5: THE PREEMPTIVE OBJECTION DESTROYERS (Fully Open, High-Alert) */}
+        {/* =========================================================================
+            SECTION 6: THE RESPECTED EXIT (FAQ & DIGNIFIED TIMELINE FOOTER)
+            Logically resolves objections and ends with an open, unforced statement
+            ========================================================================= */}
         <section id="faq" className="py-24 px-4 sm:px-6 lg:px-10 bg-zinc-50 border-t border-zinc-200 relative z-10">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16 space-y-4">
@@ -1066,7 +1138,6 @@ export default function SoraniqLandingPage() {
             </div>
 
             <div className="space-y-6">
-              {/* FAQ 1 */}
               <div className="bg-white rounded-2xl p-6 sm:p-8 border border-zinc-200 shadow-md">
                 <h3 className="text-lg sm:text-xl font-bold text-zinc-900 flex items-start gap-3 mb-4">
                   <span className="text-rose-600 text-xl font-black shrink-0">❓</span>
@@ -1077,7 +1148,6 @@ export default function SoraniqLandingPage() {
                 </div>
               </div>
 
-              {/* FAQ 2 */}
               <div className="bg-white rounded-2xl p-6 sm:p-8 border border-zinc-200 shadow-md">
                 <h3 className="text-lg sm:text-xl font-bold text-zinc-900 flex items-start gap-3 mb-4">
                   <span className="text-rose-600 text-xl font-black shrink-0">❓</span>
@@ -1089,8 +1159,14 @@ export default function SoraniqLandingPage() {
               </div>
             </div>
 
-            {/* Escape Route CTA Button */}
-            <div className="mt-14 text-center">
+            {/* The Respected Exit Statement (Unforced, Dignified) */}
+            <div className="mt-14 p-6 rounded-2xl bg-zinc-100 border border-zinc-300 text-center max-w-2xl mx-auto">
+              <p className="text-sm sm:text-base font-bold text-zinc-700 leading-relaxed">
+                «{t.respectedExitQuote}»
+              </p>
+            </div>
+
+            <div className="mt-8 text-center">
               <Link
                 to={isSignedIn ? "/dubbing" : `/sign-up?redirect_url=${encodeURIComponent('/dubbing')}`}
                 className="inline-block w-full max-w-lg py-5 px-8 rounded-2xl bg-zinc-950 hover:bg-zinc-800 text-white font-black text-lg sm:text-xl shadow-2xl transition-all transform hover:scale-[1.02] active:scale-[0.98]"
