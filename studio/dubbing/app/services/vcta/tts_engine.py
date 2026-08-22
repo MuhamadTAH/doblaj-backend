@@ -71,9 +71,11 @@ async def _call_fish_speech(
         return False, f"Reference audio not found: {reference_audio_path}"
 
     url = "https://api.fish.audio/v1/tts"
+    fish_model = os.getenv("FISH_TTS_MODEL", "s2.1-pro-free")
     headers = {
         "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/msgpack"
+        "Content-Type": "application/msgpack",
+        "model": fish_model
     }
     
     import msgpack
@@ -83,7 +85,7 @@ async def _call_fish_speech(
             "text": text,
             "reference_id": reference_id,
             "format": "wav",
-            "model": "s2-pro",
+            "model": fish_model,
             "prosody": {"speed": speed}
         }
     else:
@@ -104,7 +106,7 @@ async def _call_fish_speech(
             "text": text,
             "references": [{"audio": audio_bytes, "text": ""}],
             "format": "wav",
-            "model": "s2-pro",
+            "model": fish_model,
             "prosody": {"speed": speed}
         }
     packed_payload = msgpack.packb(payload)

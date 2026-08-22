@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 
 FISH_API_KEY = os.getenv("FISH_API_KEY", "") or os.getenv("FISH_SPEECH_API_KEY", "")
 FISH_API_URL = "https://api.fish.audio/v1/tts"
-FISH_TTS_MODEL = os.getenv("FISH_TTS_MODEL", "s2-pro")  # "s1" | "s2-pro"
+FISH_TTS_MODEL = os.getenv("FISH_TTS_MODEL", "s2.1-pro-free")  # "s2.1-pro-free" | "s2.1-pro" | "s2-pro"
 
 # Pird: when True (or when FISH_API_KEY is empty), bypass Fish entirely
 # and return a silent WAV. Useful for local dev and merge rollouts before

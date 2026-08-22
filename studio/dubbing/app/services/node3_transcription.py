@@ -147,8 +147,8 @@ STRICT LINGUISTIC RULES:
                 "parts": [
                     {"text": prompt},
                     {
-                        "inline_data": {
-                            "mime_type": "audio/wav",
+                        "inlineData": {
+                            "mimeType": "audio/wav",
                             "data": audio_b64,
                         }
                     },
@@ -156,8 +156,8 @@ STRICT LINGUISTIC RULES:
             }
         ],
         "generationConfig": {
-            "response_mime_type": "application/json",
-            "response_schema": pydantic_json_schema,
+            "responseMimeType": "application/json",
+            "responseSchema": pydantic_json_schema,
             "temperature": 0.1,
         },
     }
@@ -167,26 +167,24 @@ STRICT LINGUISTIC RULES:
         "Content-Type": "application/json",
     }
 
-    try:
-        data = await call_gemini_multimodal_with_retry(url, payload, headers)
-        raw_json_str = data["candidates"][0]["content"]["parts"][0]["text"]
-        parsed = json.loads(raw_json_str)
+    data = await call_gemini_multimodal_with_retry(url, payload, headers)
+    if "candidates" not in data or not data["candidates"]:
+        raise RuntimeError(f"Gemini returned empty response: {data}")
 
-        output = ChunkTranslationOutput(
-            source_transcription=parsed.get("source_transcription", "").strip(),
-            kurdish_sorani_text=normalize_kurdish_text(parsed.get("kurdish_sorani_text", "")),
-            is_empty_or_silence=bool(parsed.get("is_empty_or_silence", False)),
-        )
-        return output
+    raw_json_str = data["candidates"][0]["content"]["parts"][0]["text"].strip()
+    if raw_json_str.startswith("```json"):
+        raw_json_str = raw_json_str.removeprefix("```json").removesuffix("```").strip()
+    elif raw_json_str.startswith("```"):
+        raw_json_str = raw_json_str.removeprefix("```").removesuffix("```").strip()
 
-    except Exception as e:
-        logger.error(f"[NODE-3] Multimodal Gemini call failed after retries: {e}")
-        # Fallback to empty transcription rather than crashing the pipeline
-        return ChunkTranslationOutput(
-            source_transcription="[Audio transcription error]",
-            kurdish_sorani_text="[هەڵە لە وەرگێڕان]",
-            is_empty_or_silence=False,
-        )
+    parsed = json.loads(raw_json_str)
+
+    output = ChunkTranslationOutput(
+        source_transcription=parsed.get("source_transcription", "").strip(),
+        kurdish_sorani_text=normalize_kurdish_text(parsed.get("kurdish_sorani_text", "")),
+        is_empty_or_silence=bool(parsed.get("is_empty_or_silence", False)),
+    )
+    return output
 
 
 # ─────────────────────────────────────────────────────────────

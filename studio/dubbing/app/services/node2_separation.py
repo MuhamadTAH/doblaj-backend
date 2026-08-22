@@ -312,6 +312,9 @@ async def process_node2_separation(
                 "status": "PENDING_ASR",
             })
 
+        if not chunks_for_convex:
+            raise RuntimeError(f"VAD and audio slicing produced 0 speech chunks for job {job_id}")
+
         # Step 6: Batch insert into Convex
         logger.info("[NODE-2] Registering %d chunks in Convex state machine...", len(chunks_for_convex))
         c = convex_db._get_client()

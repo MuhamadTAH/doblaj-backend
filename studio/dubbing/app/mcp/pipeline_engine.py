@@ -421,6 +421,7 @@ class DubbingPipelineEngine:
         with open(trans_path, "r", encoding="utf-8-sig") as f:
             translations = json.load(f)
         trans_by_idx = {t["chunk_index"]: (t.get("iraqi_translation") or t.get("arabic_text", "")) for t in translations}
+        speed_by_idx = {t["chunk_index"]: float(t.get("speed_scale", 1.0)) for t in translations}
         
         # Get total video duration
         cmd_dur = [
@@ -466,6 +467,7 @@ class DubbingPipelineEngine:
             async with sem_tts:
                 idx = c["chunk_index"]
                 arabic_text = trans_by_idx.get(idx, "")
+                chunk_speed = speed_by_idx.get(idx, 1.0)
                 chunk_tts_path = str(tts_dir / f"tts_{idx:02d}.wav")
                 act_dur = c.get("active_speech_duration_sec", c["duration_sec"])
                 spk_id = str(c.get("speaker_id") or c.get("speaker") or c.get("speaker_label") or "speaker_0").strip()
@@ -477,6 +479,7 @@ class DubbingPipelineEngine:
                         reference_audio_path=ref_wav,
                         output_wav=chunk_tts_path,
                         speech_duration=act_dur,
+                        speed=chunk_speed,
                         reference_id=ref_id
                     )
                     return i, idx, success, chunk_tts_path
@@ -554,6 +557,7 @@ class DubbingPipelineEngine:
                 with open(trans_path, "r", encoding="utf-8-sig") as f:
                     translations = json.load(f)
                 trans_by_idx = {t["chunk_index"]: (t.get("iraqi_translation") or t.get("arabic_text", "")) for t in translations}
+                speed_by_idx = {t["chunk_index"]: float(t.get("speed_scale", 1.0)) for t in translations}
                 
                 # Re-synthesize ONLY the corrected chunks
                 corr_indices = {r["chunk_index"] for r in correction_requests}

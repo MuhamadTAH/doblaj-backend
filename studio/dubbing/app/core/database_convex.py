@@ -599,19 +599,18 @@ async def update_chunk_micro_status(
         safe_patch["error"] = error
 
     def _do():
-        try:
-            return c.mutation(
-                "dubbingChunks:updateChunkByIndexInternal",
-                _internal_args({
-                    "jobId": job_id,
-                    "chunkIndex": chunk_index,
-                    "status": status,
-                    "patch": safe_patch,
-                })
-            )
-        except Exception as e:
-            logger.warning(f"[CONVEX] update_chunk_micro_status notice for job {job_id} chunk {chunk_index}: {e}")
-            return None
+        return c.mutation(
+            "dubbingChunks:updateChunkByIndexInternal",
+            _internal_args({
+                "jobId": job_id,
+                "chunkIndex": chunk_index,
+                "status": status,
+                "patch": safe_patch,
+            })
+        )
+    return await asyncio.to_thread(_do)
+
+
 async def claim_next_batch(
     client: Any = None,
     *,
@@ -621,17 +620,13 @@ async def claim_next_batch(
     """Atomically claims up to batch_size chunks for the given job."""
     c = client or _get_client()
     def _do():
-        try:
-            return c.mutation(
-                "dubbingChunks:claimNextBatchInternal",
-                _internal_args({
-                    "jobId": job_id,
-                    "batchSize": batch_size,
-                })
-            )
-        except Exception as e:
-            logger.warning(f"[CONVEX] claim_next_batch notice for job {job_id}: {e}")
-            return []
+        return c.mutation(
+            "dubbingChunks:claimNextBatchInternal",
+            _internal_args({
+                "jobId": job_id,
+                "batchSize": batch_size,
+            })
+        ) or []
     return await asyncio.to_thread(_do)
 
 
@@ -648,21 +643,17 @@ async def complete_chunk_translation(
     """Completes translation for a single chunk, setting PENDING_TTS or SKIPPED and evaluating parent job."""
     c = client or _get_client()
     def _do():
-        try:
-            return c.mutation(
-                "dubbingChunks:completeTranslationInternal",
-                _internal_args({
-                    "jobId": job_id,
-                    "chunkIndex": chunk_index,
-                    "sourceText": source_text,
-                    "kurdishText": kurdish_text,
-                    "isEmptyOrSilence": is_empty_or_silence,
-                    "error": error,
-                })
-            )
-        except Exception as e:
-            logger.warning(f"[CONVEX] complete_chunk_translation notice for job {job_id} chunk {chunk_index}: {e}")
-            return None
+        return c.mutation(
+            "dubbingChunks:completeTranslationInternal",
+            _internal_args({
+                "jobId": job_id,
+                "chunkIndex": chunk_index,
+                "sourceText": source_text,
+                "kurdishText": kurdish_text,
+                "isEmptyOrSilence": is_empty_or_silence,
+                "error": error,
+            })
+        )
     return await asyncio.to_thread(_do)
 
 

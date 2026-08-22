@@ -103,7 +103,6 @@ from pydantic import BaseModel
 
 from app.schemas.video import VideoJobCreate, VideoJobResponse, VideoJobStatus
 from app.services.video.pipeline import create_video_job, get_job_status
-from app.services.video_worker_vcta import process_video_job_local as worker_process_video_job
 from app.core.log_redact import safe_ws
 
 
