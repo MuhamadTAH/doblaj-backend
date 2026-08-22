@@ -369,29 +369,31 @@ export default function SoraniqLandingPage() {
   return (
     <div
       dir={isRTL ? "rtl" : "ltr"}
-      className={`min-h-screen bg-[#040407] text-[#cfcfd3] ${isRTL ? "font-kurdish" : "font-sans"} antialiased selection:bg-emerald-500/25 selection:text-emerald-300 relative overflow-x-hidden`}
+      className={`min-h-screen bg-[#030306] text-[#cfcfd3] ${isRTL ? "font-kurdish" : "font-sans"} antialiased selection:bg-emerald-500/25 selection:text-emerald-300 relative overflow-x-hidden`}
     >
-      {/* Dynamic Ambient Background Beams & Mesh Glows */}
+      {/* Dynamic Ambient Background Beams, Volumetric Glows & Grain */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute top-[-10%] left-[20%] w-[600px] h-[600px] rounded-full bg-emerald-600/10 blur-[140px] animate-pulse"></div>
-        <div className="absolute top-[30%] right-[-5%] w-[500px] h-[500px] rounded-full bg-rose-600/[0.07] blur-[160px]"></div>
-        <div className="absolute bottom-[10%] left-[-10%] w-[700px] h-[700px] rounded-full bg-emerald-500/[0.08] blur-[180px]"></div>
+        {/* Film grain noise texture */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(16,185,129,0.12),rgba(255,255,255,0))] opacity-80"></div>
+        <div className="absolute top-[-15%] left-[15%] w-[650px] h-[650px] rounded-full bg-emerald-500/[0.09] blur-[150px] animate-pulse"></div>
+        <div className="absolute top-[35%] right-[-10%] w-[550px] h-[550px] rounded-full bg-rose-600/[0.06] blur-[170px]"></div>
+        <div className="absolute bottom-[5%] left-[-10%] w-[750px] h-[750px] rounded-full bg-teal-500/[0.07] blur-[190px]"></div>
         {/* Subtle Cyber Grid */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-60"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff04_1px,transparent_1px),linear-gradient(to_bottom,#ffffff04_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_10%,#000_70%,transparent_100%)] opacity-70"></div>
       </div>
 
       {/* Sticky Tactical Header */}
-      <nav className="fixed top-0 w-full z-50 bg-[#07070b]/85 backdrop-blur-2xl border-b border-white/[0.07] shadow-[0_4px_30px_rgba(0,0,0,0.8)]">
+      <nav className="fixed top-0 w-full z-50 bg-[#06070a]/90 backdrop-blur-2xl border-b border-white/[0.08] shadow-[0_4px_30px_rgba(0,0,0,0.85)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 flex justify-between items-center h-20">
           {/* Brand Logo */}
           <Link to="/" className="flex items-center gap-3.5 group">
             <div className="relative">
-              <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-emerald-400 via-emerald-500 to-teal-700 p-0.5 shadow-[0_0_25px_rgba(16,185,129,0.4)] group-hover:scale-105 transition-all duration-300">
-                <div className="w-full h-full bg-[#07070a] rounded-[14px] flex items-center justify-center">
+              <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-emerald-400 via-teal-500 to-emerald-700 p-0.5 shadow-[0_0_25px_rgba(16,185,129,0.45)] group-hover:scale-105 transition-all duration-300">
+                <div className="w-full h-full bg-[#06070a] rounded-[14px] flex items-center justify-center">
                   <span className="text-emerald-400 font-black text-xl tracking-tighter">DB</span>
                 </div>
               </div>
-              <span className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-400 rounded-full border-2 border-[#07070b] animate-ping"></span>
+              <span className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-400 rounded-full border-2 border-[#06070a] animate-ping"></span>
             </div>
             <div className="flex flex-col">
               <div className="flex items-center gap-2">
@@ -408,15 +410,15 @@ export default function SoraniqLandingPage() {
             </div>
           </Link>
 
-          {/* Action Buttons & Language Switcher (No Escape Hatch Nav Links) */}
+          {/* Action Buttons & Language Switcher */}
           <div className="flex items-center gap-3.5">
             {/* Language Switch */}
-            <div className="flex items-center bg-[#111218] border border-white/[0.08] rounded-xl p-1 text-xs shadow-inner">
+            <div className="flex items-center bg-[#0d0e14] border border-white/[0.08] rounded-xl p-1 text-xs shadow-inner">
               <button
                 onClick={() => setLang("ckb")}
                 className={`px-3 py-1.5 rounded-lg font-bold transition-all ${
                   lang === "ckb"
-                    ? "bg-emerald-500 text-[#040407] shadow-[0_0_12px_rgba(16,185,129,0.5)]"
+                    ? "bg-emerald-500 text-[#040407] shadow-[0_0_15px_rgba(16,185,129,0.6)]"
                     : "text-[#a1a1aa] hover:text-white"
                 }`}
               >
@@ -426,7 +428,7 @@ export default function SoraniqLandingPage() {
                 onClick={() => setLang("ar")}
                 className={`px-3 py-1.5 rounded-lg font-bold transition-all ${
                   lang === "ar"
-                    ? "bg-emerald-500 text-[#040407] shadow-[0_0_12px_rgba(16,185,129,0.5)]"
+                    ? "bg-emerald-500 text-[#040407] shadow-[0_0_15px_rgba(16,185,129,0.6)]"
                     : "text-[#a1a1aa] hover:text-white"
                 }`}
               >
@@ -436,7 +438,7 @@ export default function SoraniqLandingPage() {
                 onClick={() => setLang("en")}
                 className={`px-3 py-1.5 rounded-lg font-bold transition-all ${
                   lang === "en"
-                    ? "bg-emerald-500 text-[#040407] shadow-[0_0_12px_rgba(16,185,129,0.5)]"
+                    ? "bg-emerald-500 text-[#040407] shadow-[0_0_15px_rgba(16,185,129,0.6)]"
                     : "text-[#a1a1aa] hover:text-white"
                 }`}
               >
@@ -446,13 +448,13 @@ export default function SoraniqLandingPage() {
 
             <Link
               to={isSignedIn ? "/dubbing" : `/sign-up?redirect_url=${encodeURIComponent('/dubbing')}`}
-              className="relative group overflow-hidden px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl bg-gradient-to-r from-emerald-400 via-emerald-500 to-teal-500 text-[#040407] text-xs sm:text-sm font-black uppercase tracking-wider shadow-[0_0_30px_rgba(16,185,129,0.4)] transition-all duration-300 transform hover:scale-[1.03] active:scale-[0.98]"
+              className="relative group overflow-hidden px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500 text-[#040407] text-xs sm:text-sm font-black uppercase tracking-wider shadow-[0_0_30px_rgba(16,185,129,0.45)] transition-all duration-300 transform hover:scale-[1.03] active:scale-[0.98]"
             >
-              <span className="relative z-10 flex items-center gap-2 font-bold">
+              <span className="relative z-10 flex items-center gap-2 font-black">
                 <span>⚡</span>
                 <span>{isSignedIn ? t.navLogin : t.navStart}</span>
               </span>
-              <div className="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+              <div className="absolute inset-0 bg-white/25 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
             </Link>
           </div>
         </div>
@@ -462,7 +464,7 @@ export default function SoraniqLandingPage() {
       <section id="contrast-hero" className="relative pt-36 sm:pt-44 pb-20 px-4 sm:px-6 lg:px-10 max-w-7xl mx-auto z-10">
         {/* Warning Indicator */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="flex justify-center mb-8"
@@ -478,7 +480,7 @@ export default function SoraniqLandingPage() {
 
         {/* Shock Headline */}
         <motion.div
-          initial={{ opacity: 0, y: 25 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-center max-w-4xl mx-auto mb-12 space-y-5"
@@ -489,7 +491,7 @@ export default function SoraniqLandingPage() {
               {t.heroHeadlineStart}
             </span>
             {/* The Target Outcome: ONLY this is glowing Teal/Emerald (Money/Escape) */}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-emerald-400 to-teal-300 block mb-4 text-3xl sm:text-5xl lg:text-6xl font-black drop-shadow-[0_0_45px_rgba(16,185,129,0.45)]">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-teal-300 to-emerald-400 block mb-4 text-3xl sm:text-5xl lg:text-6xl font-black drop-shadow-[0_0_45px_rgba(16,185,129,0.45)]">
               {t.heroHeadlineHighlight}
             </span>
             {/* The Closing Question: Crisp pure white */}
@@ -508,12 +510,12 @@ export default function SoraniqLandingPage() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
+          transition={{ duration: 0.7, delay: 0.25 }}
           className="grid lg:grid-cols-2 gap-8 items-stretch"
         >
           {/* Left: The Dark / Pain Store */}
-          <div className="bg-gradient-to-b from-[#130b0f] via-[#0d070a] to-[#070507] border border-rose-900/40 rounded-3xl p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden shadow-2xl group hover:border-rose-700/60 transition-all duration-300">
-            <div className="absolute top-0 right-0 left-0 h-1.5 bg-gradient-to-r from-rose-700 to-rose-500"></div>
+          <div className="bg-gradient-to-b from-[#140b10] via-[#0d070b] to-[#070407] border border-rose-900/40 rounded-3xl p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden shadow-2xl group hover:border-rose-700/60 transition-all duration-300">
+            <div className="absolute top-0 right-0 left-0 h-1.5 bg-gradient-to-r from-rose-800 to-rose-500"></div>
             <div>
               <div className="flex justify-between items-center mb-6">
                 <span className="px-4 py-1.5 rounded-full text-xs sm:text-sm font-black uppercase tracking-wider bg-rose-500/15 text-rose-400 border border-rose-500/30 flex items-center gap-2">
@@ -526,15 +528,15 @@ export default function SoraniqLandingPage() {
                 {t.splitLeftTitle}
               </h3>
               <ul className="space-y-4 text-sm sm:text-base text-[#cfcfd3] mb-8 font-medium">
-                <li className="flex items-start gap-3 p-3 rounded-xl bg-black/40 border border-rose-900/20">
+                <li className="flex items-start gap-3 p-3.5 rounded-xl bg-black/40 border border-rose-900/20">
                   <span className="text-rose-500 font-black text-lg">✕</span>
                   <span className="leading-snug">{t.splitLeftItem1}</span>
                 </li>
-                <li className="flex items-start gap-3 p-3 rounded-xl bg-black/40 border border-rose-900/20">
+                <li className="flex items-start gap-3 p-3.5 rounded-xl bg-black/40 border border-rose-900/20">
                   <span className="text-rose-500 font-black text-lg">✕</span>
                   <span className="leading-snug">{t.splitLeftItem2}</span>
                 </li>
-                <li className="flex items-start gap-3 p-3 rounded-xl bg-black/40 border border-rose-900/20">
+                <li className="flex items-start gap-3 p-3.5 rounded-xl bg-black/40 border border-rose-900/20">
                   <span className="text-rose-500 font-black text-lg">✕</span>
                   <span className="leading-snug">{t.splitLeftItem3}</span>
                 </li>
@@ -551,7 +553,7 @@ export default function SoraniqLandingPage() {
           </div>
 
           {/* Right: The Wealth / Escape Store */}
-          <div className="bg-gradient-to-b from-[#0c1f15] via-[#081710] to-[#040e09] border-2 border-emerald-500 rounded-3xl p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden shadow-[0_0_60px_rgba(16,185,129,0.25)] group hover:border-emerald-400 transition-all duration-300">
+          <div className="bg-gradient-to-b from-[#0a2016] via-[#06170f] to-[#030d08] border-2 border-emerald-500/90 rounded-3xl p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden shadow-[0_0_60px_rgba(16,185,129,0.25)] group hover:border-emerald-400 transition-all duration-300">
             <div className="absolute top-0 right-0 left-0 h-2 bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.8)]"></div>
             <div>
               <div className="flex justify-between items-center mb-6">
@@ -559,7 +561,7 @@ export default function SoraniqLandingPage() {
                   <span>{t.splitRightStatus}</span>
                   <span>💰</span>
                 </span>
-                <span className="text-xs font-mono text-emerald-400/80 uppercase font-bold flex items-center gap-1">
+                <span className="text-xs font-mono text-emerald-400/90 uppercase font-bold flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
                   <span>ACTIVE REVENUE</span>
                 </span>
@@ -568,21 +570,21 @@ export default function SoraniqLandingPage() {
                 {t.splitRightTitle}
               </h3>
               <ul className="space-y-4 text-sm sm:text-base text-[#fafafa] mb-8 font-semibold">
-                <li className="flex items-start gap-3 p-3 rounded-xl bg-emerald-950/30 border border-emerald-500/30">
+                <li className="flex items-start gap-3 p-3.5 rounded-xl bg-emerald-950/30 border border-emerald-500/30">
                   <span className="text-emerald-400 font-black text-lg">✓</span>
                   <span className="leading-snug">{t.splitRightItem1}</span>
                 </li>
-                <li className="flex items-start gap-3 p-3 rounded-xl bg-emerald-950/30 border border-emerald-500/30">
+                <li className="flex items-start gap-3 p-3.5 rounded-xl bg-emerald-950/30 border border-emerald-500/30">
                   <span className="text-emerald-400 font-black text-lg">✓</span>
                   <span className="leading-snug">{t.splitRightItem2}</span>
                 </li>
-                <li className="flex items-start gap-3 p-3 rounded-xl bg-emerald-950/30 border border-emerald-500/30">
+                <li className="flex items-start gap-3 p-3.5 rounded-xl bg-emerald-950/30 border border-emerald-500/30">
                   <span className="text-emerald-400 font-black text-lg">✓</span>
                   <span className="leading-snug">{t.splitRightItem3}</span>
                 </li>
               </ul>
             </div>
-            <div className="p-5 rounded-2xl bg-[#040907]/90 border border-emerald-500/60 text-center shadow-[0_0_25px_rgba(16,185,129,0.2)]">
+            <div className="p-5 rounded-2xl bg-[#040a07]/90 border border-emerald-500/60 text-center shadow-[0_0_25px_rgba(16,185,129,0.2)]">
               <div className="text-xs uppercase font-black text-emerald-400 tracking-wider mb-1">
                 Tourist Revenue Added
               </div>
@@ -619,7 +621,7 @@ export default function SoraniqLandingPage() {
       </section>
 
       {/* SECTION 2: INTERACTIVE "HEAR THE DIFFERENCE" LIVE DUBBING PREVIEW PLAYER */}
-      <section id="voice-demo" className="py-24 px-4 sm:px-6 lg:px-10 bg-[#07080d] border-y border-white/[0.08] relative z-10">
+      <section id="voice-demo" className="py-24 px-4 sm:px-6 lg:px-10 bg-[#06070c] border-y border-white/[0.08] relative z-10">
         <div className="max-w-5xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-14 space-y-3">
             <div className="inline-block px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
@@ -634,12 +636,12 @@ export default function SoraniqLandingPage() {
           </div>
 
           {/* Interactive Player Console */}
-          <div className="bg-[#0d1017] rounded-3xl p-6 sm:p-10 border-2 border-white/[0.1] shadow-2xl relative overflow-hidden">
-            {/* Audio Mode Tabs */}
-            <div className="flex flex-col sm:flex-row gap-3 mb-8 bg-[#07090e] p-2 rounded-2xl border border-white/[0.08]">
+          <div className="bg-[#0b0e16] rounded-3xl p-6 sm:p-10 border-2 border-white/[0.1] shadow-2xl relative overflow-hidden">
+            {/* Audio Mode Tabs with Smooth Pill Indicator */}
+            <div className="flex flex-col sm:flex-row gap-3 mb-8 bg-[#06080e] p-2 rounded-2xl border border-white/[0.08] relative">
               <button
                 onClick={() => { setActiveAudioTab("kurdish"); setAudioProgress(0); }}
-                className={`flex-1 py-4 px-6 rounded-xl font-black text-sm transition-all flex items-center justify-center gap-3 ${
+                className={`flex-1 py-4 px-6 rounded-xl font-black text-sm transition-all flex items-center justify-center gap-3 relative z-10 ${
                   activeAudioTab === "kurdish"
                     ? "bg-[#181a24] text-rose-300 border border-rose-500/40 shadow-lg"
                     : "text-[#a1a1aa] hover:text-white"
@@ -649,7 +651,7 @@ export default function SoraniqLandingPage() {
               </button>
               <button
                 onClick={() => { setActiveAudioTab("iraqi"); setAudioProgress(0); }}
-                className={`flex-1 py-4 px-6 rounded-xl font-black text-sm transition-all flex items-center justify-center gap-3 ${
+                className={`flex-1 py-4 px-6 rounded-xl font-black text-sm transition-all flex items-center justify-center gap-3 relative z-10 ${
                   activeAudioTab === "iraqi"
                     ? "bg-gradient-to-r from-emerald-500 to-teal-500 text-[#040407] shadow-[0_0_25px_rgba(16,185,129,0.5)] scale-[1.01]"
                     : "text-[#a1a1aa] hover:text-white"
@@ -660,15 +662,15 @@ export default function SoraniqLandingPage() {
             </div>
 
             {/* Simulated Live Waveform & Playback Visualizer */}
-            <div className="bg-[#06070b] p-6 sm:p-8 rounded-2xl border border-white/[0.08] mb-8 space-y-6">
+            <div className="bg-[#05060a] p-6 sm:p-8 rounded-2xl border border-white/[0.08] mb-8 space-y-6">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3.5">
                   <button
                     onClick={() => setIsPlayingAudio(!isPlayingAudio)}
-                    className={`w-12 h-12 rounded-2xl flex items-center justify-center text-xl transition-all shadow-lg ${
+                    className={`w-12 h-12 rounded-2xl flex items-center justify-center text-xl transition-all shadow-lg transform active:scale-95 ${
                       activeAudioTab === "iraqi"
-                        ? "bg-emerald-500 text-[#040407] hover:bg-emerald-400 shadow-emerald-500/30"
-                        : "bg-rose-500 text-white hover:bg-rose-400 shadow-rose-500/30"
+                        ? "bg-emerald-400 text-[#040407] hover:bg-emerald-300 shadow-emerald-500/40"
+                        : "bg-rose-500 text-white hover:bg-rose-400 shadow-rose-500/40"
                     }`}
                   >
                     {isPlayingAudio ? "⏸" : "▶"}
@@ -682,42 +684,43 @@ export default function SoraniqLandingPage() {
                     </div>
                   </div>
                 </div>
-                <div className="text-xs font-mono text-[#a1a1aa] font-bold">
+                <div className="text-xs font-mono text-[#a1a1aa] font-bold bg-[#0d0f17] px-3 py-1.5 rounded-lg border border-white/[0.06]">
                   00:0{Math.floor(audioProgress / 20)} / 00:05
                 </div>
               </div>
 
-              {/* Dynamic Spectrum Waveform Bars */}
+              {/* Dynamic Spectrum Waveform Bars (28 Bars) */}
               <div className="flex items-center justify-between gap-1 sm:gap-1.5 h-16 px-2">
-                {[18, 35, 60, 85, 45, 90, 75, 40, 65, 95, 80, 50, 70, 100, 85, 60, 45, 80, 65, 40, 90, 75, 55, 30].map((h, i) => (
+                {[18, 35, 60, 85, 45, 90, 75, 40, 65, 95, 80, 50, 70, 100, 85, 60, 45, 80, 65, 40, 90, 75, 55, 30, 65, 85, 45, 20].map((h, i) => (
                   <div
                     key={i}
                     style={{
-                      height: isPlayingAudio ? `${Math.max(15, (h * (0.5 + Math.sin((audioProgress + i * 10) / 10) * 0.5)))}%` : `${h * 0.3}%`,
+                      height: isPlayingAudio ? `${Math.max(15, (h * (0.45 + Math.sin((audioProgress + i * 8) / 8) * 0.55)))}%` : `${h * 0.25}%`,
                     }}
                     className={`flex-1 rounded-full transition-all duration-150 ${
                       activeAudioTab === "iraqi"
-                        ? i * 4.1 <= audioProgress ? "bg-gradient-to-t from-emerald-500 to-teal-300 shadow-[0_0_8px_#10b981]" : "bg-emerald-950/40"
-                        : i * 4.1 <= audioProgress ? "bg-rose-500 shadow-[0_0_8px_#f43f5e]" : "bg-rose-950/40"
+                        ? i * 3.5 <= audioProgress ? "bg-gradient-to-t from-emerald-500 via-teal-300 to-emerald-200 shadow-[0_0_10px_#10b981]" : "bg-emerald-950/40"
+                        : i * 3.5 <= audioProgress ? "bg-gradient-to-t from-rose-600 to-rose-400 shadow-[0_0_10px_#f43f5e]" : "bg-rose-950/40"
                     }`}
                   ></div>
                 ))}
               </div>
 
               {/* Spoken Transcript Box */}
-              <div className="p-4 rounded-xl bg-[#0e111a] border border-white/[0.06] text-xs sm:text-sm font-medium text-[#e4e4e7] leading-relaxed">
-                <span className="text-[#8e8e9c] text-xs block mb-1 font-bold">
+              <div className="p-4 sm:p-5 rounded-xl bg-[#0c0e18] border border-white/[0.08] text-xs sm:text-sm font-medium text-[#e4e4e7] leading-relaxed">
+                <span className="text-[#8e8e9c] text-xs block mb-1.5 font-bold">
                   {isRTL ? "دەقی قسەکراو لە ڤیدیۆکەدا:" : "Spoken Video Dialogue:"}
                 </span>
-                <span className={activeAudioTab === "iraqi" ? "text-emerald-300 font-bold" : "text-rose-200"}>
+                <span className={activeAudioTab === "iraqi" ? "text-emerald-300 font-bold text-sm sm:text-base" : "text-rose-200 text-sm sm:text-base"}>
                   {activeAudioTab === "iraqi" ? t.iraqiTranscript : t.kurdishTranscript}
                 </span>
               </div>
             </div>
 
             <div className="text-center">
-              <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-4 py-2 rounded-full font-bold">
-                ⚡ Tested with Arab tourists across Baghdad, Basra, and Najaf with 99.4% dialect comprehension
+              <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-4 py-2 rounded-full font-bold inline-flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                <span>⚡ Tested with Arab tourists across Baghdad, Basra, and Najaf with 99.4% dialect comprehension</span>
               </span>
             </div>
           </div>
@@ -738,14 +741,14 @@ export default function SoraniqLandingPage() {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-12 gap-8 items-stretch bg-[#0d1017] rounded-3xl p-6 sm:p-10 border border-white/[0.1] shadow-2xl">
+        <div className="grid lg:grid-cols-12 gap-8 items-stretch bg-[#0c0e16] rounded-3xl p-6 sm:p-10 border border-white/[0.1] shadow-2xl">
           {/* Sliders Input Panel (Right column in RTL, 7 Cols) */}
           <div className="lg:col-span-7 space-y-8 flex flex-col justify-center">
             {/* Slider 1: Average Profit per Arab Customer */}
-            <div className="space-y-3 bg-[#08090f] p-5 rounded-2xl border border-white/[0.06]">
+            <div className="space-y-3 bg-[#06080e] p-5 sm:p-6 rounded-2xl border border-white/[0.08]">
               <div className="flex justify-between items-center text-sm sm:text-base font-bold text-white">
                 <span>{t.calcSlider1Label}</span>
-                <span className="text-xl sm:text-2xl font-black text-emerald-400 font-mono">
+                <span className="text-xl sm:text-2xl font-black text-emerald-400 font-mono bg-[#0c0e18] px-3.5 py-1 rounded-xl border border-emerald-500/30">
                   {avgProfitPerCustomer.toLocaleString()} {isRTL ? "دینار" : "IQD"}
                 </span>
               </div>
@@ -756,7 +759,7 @@ export default function SoraniqLandingPage() {
                 step="5000"
                 value={avgProfitPerCustomer}
                 onChange={(e) => setAvgProfitPerCustomer(Number(e.target.value))}
-                className="w-full h-3 bg-[#030407] rounded-lg appearance-none cursor-pointer accent-emerald-400"
+                className="w-full h-3 bg-[#020306] rounded-lg appearance-none cursor-pointer accent-emerald-400"
               />
               <div className="flex justify-between text-xs font-mono text-[#71717a]">
                 <span>{isRTL ? "١٠,٠٠٠ دینار" : "10,000 IQD"}</span>
@@ -766,10 +769,10 @@ export default function SoraniqLandingPage() {
             </div>
 
             {/* Slider 2: Number of Arab Customers */}
-            <div className="space-y-3 bg-[#08090f] p-5 rounded-2xl border border-white/[0.06]">
+            <div className="space-y-3 bg-[#06080e] p-5 sm:p-6 rounded-2xl border border-white/[0.08]">
               <div className="flex justify-between items-center text-sm sm:text-base font-bold text-white">
                 <span>{t.calcSlider2Label}</span>
-                <span className="text-xl sm:text-2xl font-black text-emerald-400 font-mono">
+                <span className="text-xl sm:text-2xl font-black text-emerald-400 font-mono bg-[#0c0e18] px-3.5 py-1 rounded-xl border border-emerald-500/30">
                   {touristCustomers} {isRTL ? "کڕیار" : "customers"}
                 </span>
               </div>
@@ -780,7 +783,7 @@ export default function SoraniqLandingPage() {
                 step="1"
                 value={touristCustomers}
                 onChange={(e) => setTouristCustomers(Number(e.target.value))}
-                className="w-full h-3 bg-[#030407] rounded-lg appearance-none cursor-pointer accent-emerald-400"
+                className="w-full h-3 bg-[#020306] rounded-lg appearance-none cursor-pointer accent-emerald-400"
               />
               <div className="flex justify-between text-xs font-mono text-[#71717a]">
                 <span>{isRTL ? "١ کڕیار" : "1 customer"}</span>
@@ -791,7 +794,7 @@ export default function SoraniqLandingPage() {
           </div>
 
           {/* Result Output Card (Left column in RTL, 5 Cols) */}
-          <div className="lg:col-span-5 bg-gradient-to-b from-[#112419] to-[#0a160f] rounded-2xl p-6 sm:p-8 border-2 border-emerald-500/80 shadow-[0_0_50px_rgba(16,185,129,0.25)] flex flex-col justify-between text-center space-y-6">
+          <div className="lg:col-span-5 bg-gradient-to-b from-[#0f2418] via-[#091710] to-[#040e09] rounded-2xl p-6 sm:p-8 border-2 border-emerald-500/80 shadow-[0_0_50px_rgba(16,185,129,0.3)] flex flex-col justify-between text-center space-y-6">
             <div className="space-y-3">
               {/* Sub-text in White / light gray */}
               <div className="text-sm sm:text-base font-bold text-zinc-300 tracking-normal">
@@ -842,7 +845,7 @@ export default function SoraniqLandingPage() {
             <span className={`text-xs font-bold ${!isAnnual ? "text-white" : "text-[#71717a]"}`}>{t.billingMonthly}</span>
             <button
               onClick={() => setIsAnnual(!isAnnual)}
-              className="w-14 h-7 bg-[#161922] rounded-full p-1 border border-white/[0.1] transition-colors relative"
+              className="w-14 h-7 bg-[#141620] rounded-full p-1 border border-white/[0.1] transition-colors relative"
             >
               <div className={`w-5 h-5 rounded-full bg-emerald-400 shadow-md transition-transform transform ${isAnnual ? (isRTL ? "-translate-x-7" : "translate-x-7") : ""}`}></div>
             </button>
@@ -853,7 +856,7 @@ export default function SoraniqLandingPage() {
         {/* 3 Manipulated Tiers (RTL Reading Flow: Anchor ($99) on Far Right -> Target ($20) in Middle -> Decoy ($15) on Far Left) */}
         <div className="grid lg:grid-cols-3 gap-8 items-center max-w-6xl mx-auto">
           {/* Card 1: The Anchor ($99 - Agency / Company Plan) -> First Child = Far Right in RTL */}
-          <div className="bg-[#0a0c12] rounded-3xl p-6 sm:p-8 border border-white/[0.08] flex flex-col justify-between shadow-2xl">
+          <div className="bg-[#090b11] rounded-3xl p-6 sm:p-8 border border-white/[0.08] flex flex-col justify-between shadow-2xl hover:border-white/[0.15] transition-all">
             <div>
               <div className="text-xs uppercase font-mono text-[#a1a1aa] font-bold mb-2">
                 {t.anchorTitle}
@@ -881,7 +884,7 @@ export default function SoraniqLandingPage() {
           </div>
 
           {/* Card 2: The Target ($20 - Most Popular) -> Middle Child */}
-          <div className="bg-gradient-to-b from-[#12281a] via-[#0b1b11] to-[#06100a] rounded-3xl p-8 sm:p-10 border-2 border-emerald-400 flex flex-col justify-between relative shadow-[0_0_60px_rgba(16,185,129,0.3)] transform lg:-translate-y-4">
+          <div className="bg-gradient-to-b from-[#112619] via-[#0a1b11] to-[#050f09] rounded-3xl p-8 sm:p-10 border-2 border-emerald-400 flex flex-col justify-between relative shadow-[0_0_60px_rgba(16,185,129,0.3)] transform lg:-translate-y-4">
             <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1.5 bg-gradient-to-r from-emerald-400 to-teal-400 text-[#040407] text-xs font-black uppercase rounded-full shadow-[0_0_20px_rgba(16,185,129,0.8)] whitespace-nowrap">
               {t.targetBadge}
             </div>
@@ -915,7 +918,7 @@ export default function SoraniqLandingPage() {
           </div>
 
           {/* Card 3: The Decoy ($15) -> Third Child = Far Left in RTL */}
-          <div className="bg-[#0e1017] rounded-3xl p-6 sm:p-8 border border-white/[0.06] flex flex-col justify-between opacity-80 hover:opacity-100 transition-all">
+          <div className="bg-[#0b0d13] rounded-3xl p-6 sm:p-8 border border-white/[0.06] flex flex-col justify-between opacity-80 hover:opacity-100 transition-all">
             <div>
               <div className="text-xs uppercase font-mono text-[#71717a] font-bold mb-2">
                 {t.decoyTitle}
@@ -947,12 +950,12 @@ export default function SoraniqLandingPage() {
           <div className="text-xs sm:text-sm font-semibold text-[#8e8e9c]">
             {t.paymentTrust}
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-3 opacity-75">
-            <span className="px-3 py-1 rounded-lg bg-white/[0.04] border border-white/[0.08] text-xs font-mono font-bold text-white">FastPay</span>
-            <span className="px-3 py-1 rounded-lg bg-white/[0.04] border border-white/[0.08] text-xs font-mono font-bold text-white">FIB (First Iraqi Bank)</span>
-            <span className="px-3 py-1 rounded-lg bg-white/[0.04] border border-white/[0.08] text-xs font-mono font-bold text-white">ZainCash</span>
-            <span className="px-3 py-1 rounded-lg bg-white/[0.04] border border-white/[0.08] text-xs font-mono font-bold text-white">AsiaHawala</span>
-            <span className="px-3 py-1 rounded-lg bg-white/[0.04] border border-white/[0.08] text-xs font-mono font-bold text-white">Visa / Mastercard</span>
+          <div className="flex flex-wrap items-center justify-center gap-3 opacity-80">
+            <span className="px-3.5 py-1.5 rounded-xl bg-white/[0.04] border border-white/[0.08] text-xs font-mono font-bold text-white shadow-sm hover:border-emerald-500/30 transition-colors">FastPay</span>
+            <span className="px-3.5 py-1.5 rounded-xl bg-white/[0.04] border border-white/[0.08] text-xs font-mono font-bold text-white shadow-sm hover:border-emerald-500/30 transition-colors">FIB (First Iraqi Bank)</span>
+            <span className="px-3.5 py-1.5 rounded-xl bg-white/[0.04] border border-white/[0.08] text-xs font-mono font-bold text-white shadow-sm hover:border-emerald-500/30 transition-colors">ZainCash</span>
+            <span className="px-3.5 py-1.5 rounded-xl bg-white/[0.04] border border-white/[0.08] text-xs font-mono font-bold text-white shadow-sm hover:border-emerald-500/30 transition-colors">AsiaHawala</span>
+            <span className="px-3.5 py-1.5 rounded-xl bg-white/[0.04] border border-white/[0.08] text-xs font-mono font-bold text-white shadow-sm hover:border-emerald-500/30 transition-colors">Visa / Mastercard</span>
           </div>
         </div>
       </section>
@@ -974,7 +977,7 @@ export default function SoraniqLandingPage() {
 
           <div className="space-y-6">
             {/* FAQ 1 */}
-            <div className="bg-[#12141c] rounded-2xl p-6 sm:p-8 border border-white/[0.08] shadow-xl">
+            <div className="bg-[#10121a] rounded-2xl p-6 sm:p-8 border border-white/[0.08] shadow-xl hover:border-white/[0.14] transition-all">
               <h3 className="text-lg sm:text-xl font-bold text-[#fafafa] flex items-start gap-3 mb-4">
                 <span className="text-rose-400 text-xl font-black shrink-0">❓</span>
                 <span className="leading-snug">{t.faq1Q}</span>
@@ -985,7 +988,7 @@ export default function SoraniqLandingPage() {
             </div>
 
             {/* FAQ 2 */}
-            <div className="bg-[#12141c] rounded-2xl p-6 sm:p-8 border border-white/[0.08] shadow-xl">
+            <div className="bg-[#10121a] rounded-2xl p-6 sm:p-8 border border-white/[0.08] shadow-xl hover:border-white/[0.14] transition-all">
               <h3 className="text-lg sm:text-xl font-bold text-[#fafafa] flex items-start gap-3 mb-4">
                 <span className="text-rose-400 text-xl font-black shrink-0">❓</span>
                 <span className="leading-snug">{t.faq2Q}</span>
@@ -1014,7 +1017,7 @@ export default function SoraniqLandingPage() {
           <div className="col-span-1 md:col-span-2 space-y-4 pr-0 md:pr-8">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-600 p-0.5 flex items-center justify-center shadow-lg">
-                <div className="w-full h-full bg-[#07070a] rounded-[8px] flex items-center justify-center">
+                <div className="w-full h-full bg-[#06070a] rounded-[8px] flex items-center justify-center">
                   <span className="text-emerald-400 font-bold text-sm">DB</span>
                 </div>
               </div>
