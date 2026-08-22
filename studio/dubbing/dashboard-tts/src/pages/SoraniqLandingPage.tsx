@@ -18,9 +18,8 @@ export default function SoraniqLandingPage() {
   const [avgProfitPerCustomer, setAvgProfitPerCustomer] = useState(10000); // 10,000 IQD default
   const [touristCustomers, setTouristCustomers] = useState(10); // 10 customers default
 
-  // 1. Pattern Interrupt Scroll (Tactic #28)
-  const [showPatternInterrupt, setShowPatternInterrupt] = useState(false);
-  const [isShaking, setIsShaking] = useState(false);
+  // 1. Passive Pattern Interrupt Banner (Tactic #28 Refinement)
+  const [showPassiveBanner, setShowPassiveBanner] = useState(false);
   const hasTriggeredInterrupt = useRef(false);
   const pageLoadedTime = useRef(Date.now());
 
@@ -38,7 +37,7 @@ export default function SoraniqLandingPage() {
     return () => clearInterval(interval);
   }, [isPlayingAudio]);
 
-  // Scroll Velocity & Pattern Interrupt Trigger
+  // Passive Pattern Interrupt Trigger (Scroll Velocity)
   useEffect(() => {
     let lastScrollY = window.scrollY;
     let lastTime = Date.now();
@@ -54,13 +53,11 @@ export default function SoraniqLandingPage() {
       if (
         !hasTriggeredInterrupt.current &&
         currentScrollY > 350 &&
-        currentScrollY < 1900 &&
-        (timeSincePageLoad < 2.5 || (timeDiff > 0 && scrollDiff / timeDiff > 2.0))
+        currentScrollY < 2000 &&
+        (timeSincePageLoad < 2.5 || (timeDiff > 0 && scrollDiff / timeDiff > 1.8))
       ) {
         hasTriggeredInterrupt.current = true;
-        setIsShaking(true);
-        setTimeout(() => setIsShaking(false), 450);
-        setShowPatternInterrupt(true);
+        setShowPassiveBanner(true);
       }
 
       lastScrollY = currentScrollY;
@@ -109,9 +106,8 @@ export default function SoraniqLandingPage() {
       ctaPrimary: "لە ١٠ چرکەدا وەتسئەپەکەم ببەستەوە",
       ctaSubtext: "تاقیکردنەوەی دەستبەجێ بە خۆڕایی • پێویست بە کارتی بانک ناکات",
 
-      patternInterruptTitle: "⚠️ بوەستە!",
-      patternInterruptQuestion: "بوەستە. بەڕاستی دەتەوێت بەردەوام بیت لە خلیسکاندن لە کاتێکدا ڕکابەرەکانت گەشتیارە عەرەبەکان دەبەن؟",
-      patternInterruptCta: "بوەستە و سەیری ڕاستییەکان بکە",
+      passiveBannerText: "بوەستە... ئایا دڵنیایت ڕکابەرەکانت لە شەقامی مەولەوی پێش تۆ ئەم گەشتیارانەیان نەکردووەتە ئامانج؟",
+      passiveBannerAction: "سەیری بکە",
 
       audioTitle: "گوێ لە جیاوازیی دەنگ و شێوەزارەکە بگرە",
       audioSubtitle: "ببینە چۆن دەنگی سۆرانیی ئاسایی دەبێتە عەرەبی عێراقییەکی ئەوەندە سروشتی کە گەشتیار وا دەزانێت کارمەندەکەت خەڵکی بەغدایە!",
@@ -215,9 +211,8 @@ export default function SoraniqLandingPage() {
       ctaPrimary: "اربط رقم الواتساب بـ ١٠ ثواني",
       ctaSubtext: "تجربة مجانية فورية • بدون الحاجة لبطاقة بنكية",
 
-      patternInterruptTitle: "⚠️ لحظة!",
-      patternInterruptQuestion: "لحظة. صدك تريد تستمر بالتصفح السريع بينما منافسيك ديأخذون منك كل السياح العرب؟",
-      patternInterruptCta: "توقف واقرأ الحقيقة الصادمة",
+      passiveBannerText: "لحظة... متأكد منافسيك بشارع المولوي ما بدأوا يستهدفون ذوله السياح قبلك؟",
+      passiveBannerAction: "شوف الحقيقة",
 
       audioTitle: "اسمع الفرق بين الصوت الكردي والدبلجة العراقية",
       audioSubtitle: "شوف شلون الصوت الكردي يتحول للهجة بغدادية حقيقية كأنما صاحب المحل ابن بغداد!",
@@ -321,9 +316,8 @@ export default function SoraniqLandingPage() {
       ctaPrimary: "Link My WhatsApp in 10 Seconds",
       ctaSubtext: "100% Free Demo • No credit card required to test",
 
-      patternInterruptTitle: "⚠️ WAIT!",
-      patternInterruptQuestion: "Wait. Are you really going to keep scrolling while your competitors steal the Arab tourists?",
-      patternInterruptCta: "Stop Skimming & Read The Truth",
+      passiveBannerText: "Wait... are you sure your competitors on Mawlawi Street aren't already targeting these tourists?",
+      passiveBannerAction: "See Why",
 
       audioTitle: "Hear The Dialect Precision",
       audioSubtitle: "Listen to how raw Kurdish promotional video audio transforms into friendly Baghdad dialect that tourists instantly trust:",
@@ -420,45 +414,53 @@ export default function SoraniqLandingPage() {
   return (
     <div
       dir={isRTL ? "rtl" : "ltr"}
-      className={`min-h-screen ${isShaking ? "screen-shake" : ""} ${isRTL ? "font-kurdish" : "font-sans"} antialiased selection:bg-emerald-500/25 selection:text-emerald-800 relative overflow-x-hidden`}
+      className={`min-h-screen ${isRTL ? "font-kurdish" : "font-sans"} antialiased selection:bg-emerald-500/25 selection:text-emerald-800 relative overflow-x-hidden`}
     >
-      {/* 1. PATTERN INTERRUPT POPUP MODAL (Tactic #28) */}
+      {/* 1. PASSIVE PATTERN INTERRUPT STICKY BANNER (Tactic #28 Refined) */}
       <AnimatePresence>
-        {showPatternInterrupt && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-            <motion.div
-              initial={{ scale: 0.85, opacity: 0, y: 30 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: "spring", damping: 25, stiffness: 350 }}
-              className="bg-white text-zinc-900 rounded-3xl p-8 sm:p-12 max-w-xl w-full border-4 border-rose-600 shadow-[0_0_100px_rgba(225,29,72,0.6)] text-center relative z-50"
-            >
-              <div className="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-6 border-2 border-rose-600 text-3xl font-black">
-                ⚠️
+        {showPassiveBanner && (
+          <motion.div
+            initial={{ y: -70, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -70, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 220, damping: 24 }}
+            className="fixed top-20 inset-x-0 z-40 bg-[#0b0e17]/95 backdrop-blur-xl border-b border-emerald-500/30 text-zinc-200 py-3 px-4 sm:px-8 shadow-[0_10px_30px_rgba(0,0,0,0.6)]"
+          >
+            <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm font-bold">
+              <div className="flex items-center gap-3">
+                <span className="relative flex h-2.5 w-2.5 shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500 shadow-[0_0_8px_#10b981]"></span>
+                </span>
+                <span className="text-zinc-200 font-medium leading-normal">
+                  {t.passiveBannerText}
+                </span>
               </div>
-              <h3 className="text-2xl sm:text-3xl font-black text-rose-600 mb-4 tracking-tight leading-tight">
-                {t.patternInterruptTitle}
-              </h3>
-              <p className="text-lg sm:text-xl font-bold text-zinc-800 leading-relaxed mb-8">
-                {t.patternInterruptQuestion}
-              </p>
-              <button
-                onClick={() => {
-                  setShowPatternInterrupt(false);
-                  const el = document.getElementById("contrast-hero");
-                  if (el) el.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="w-full py-4 sm:py-5 rounded-2xl bg-zinc-950 hover:bg-zinc-800 text-white font-black text-base sm:text-lg shadow-2xl transition-all transform active:scale-95"
-              >
-                {t.patternInterruptCta}
-              </button>
-            </motion.div>
-          </div>
+              <div className="flex items-center gap-3 shrink-0">
+                <button
+                  onClick={() => {
+                    const el = document.getElementById("contrast-hero");
+                    if (el) el.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="px-3.5 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 text-xs font-bold transition-colors"
+                >
+                  {t.passiveBannerAction}
+                </button>
+                <button
+                  onClick={() => setShowPassiveBanner(false)}
+                  className="w-6 h-6 rounded-full flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/10 transition-colors"
+                  aria-label="Dismiss banner"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
 
       {/* STICKY HEADER */}
-      <nav className="fixed top-0 w-full z-40 bg-[#06070a]/90 backdrop-blur-2xl border-b border-white/[0.08] shadow-[0_4px_30px_rgba(0,0,0,0.85)]">
+      <nav className="fixed top-0 w-full z-50 bg-[#06070a]/90 backdrop-blur-2xl border-b border-white/[0.08] shadow-[0_4px_30px_rgba(0,0,0,0.85)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 flex justify-between items-center h-20">
           {/* Brand Logo */}
           <Link to="/" className="flex items-center gap-3.5 group">
